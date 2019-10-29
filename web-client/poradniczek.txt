@@ -1,21 +1,22 @@
 1. Przygotowanie
-	- zainstalowaæ Node.js
-	- sprawdziæ w konsoli, czy jest poprawnie zainstalowany npm (npm -v)
-	- za pomoc¹ npm zainstalowaæ AngularCLI
+	- zainstalowaÄ‡ Node.js
+	- sprawdziÄ‡ w konsoli, czy jest poprawnie zainstalowany npm (npm -v)
+	- za pomocÄ… npm zainstalowaÄ‡ AngularCLI
 		npm install -g @angular/cli
-	- sprawdziæ, czy zainstalowa³ siê AngularCLI
+	- sprawdziÄ‡, czy zainstalowaÅ‚ siÄ™ AngularCLI
 		ng --version
 2. Import projektu
-	- odpaliæ folder w VS Code albo zaimportowaæ jako modu³ Angulara w IntelliJ
+	- odpaliÄ‡ folder w VS Code albo zaimportowaÄ‡ jako moduÅ‚ Angulara w IntelliJ
 
 3. Odpalenie aplikacji 
-	- wejœæ przez konsolê do folderu projektu (mo¿na odpaliæ konsolê w IDE)
-	- polecenie: ng serve --open (--open powoduje, ¿e otwiera siê automatycznie okno przegl¹darki na adresie aplikacji: http://localhost:4200)
-	- nie zamykaæ konsoli gdzie leci ng serve - ten program to serwer aplikacji, musi byæ uruchomiony ;)
+	- wejÅ›Ä‡ przez konsolÄ™ do folderu projektu (moÅ¼na odpaliÄ‡ konsolÄ™ w IDE)
+  - wykonaÄ‡: npm install (moÅ¼e troche zlecieÄ‡, bo zaciÄ…gnie wszystkie dependencje)
+	- wykonaÄ‡: ng serve --open (--open powoduje, Å¼e otwiera siÄ™ automatycznie okno przeglÄ…darki na adresie aplikacji: http://localhost:4200)
+	- nie zamykaÄ‡ konsoli gdzie leci ng serve - ten program to serwer aplikacji, musi byÄ‡ uruchomiony ;)
 
-4. Mo¿na kodziæ ;)
+4. MoÅ¼na kodziÄ‡ ;)
 
 5. Dodatkowe info
 
-	- generujcie sobie wszystkie klasy, komponenty, itd. za pomoc¹ angular cli
+	- generujcie sobie wszystkie klasy, komponenty, itd. za pomocÄ… angular cli
 		ng g <class/component/itd.> <sciezka/nazwa>
