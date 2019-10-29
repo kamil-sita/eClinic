@@ -1,0 +1,30 @@
+BACKEND
+
+1. Import w IntelliJ
+	
+	- File -> New -> Import from existing sources...
+	- Wybraæ plik pom.xml, który jest w g³ównym folderze projektu
+	- Poczekaæ, a¿ zbuduje siê projekt i zaci¹gn¹ siê wszystkie zale¿noœci (mo¿e trochê potrwaæ)
+
+2. Odpalenie
+
+	- Odpaliæ klasê EClinicApplication
+	- Po jakimœ czasie w konsoli pojawi siê log "Completed Initialization"
+
+3. Przetestowanie HelloWorld
+
+	- wykonaæ w Postmanie metodê GET na adres http://localhost:8080/api/test-hello/hello
+	- (alternatywnie mo¿na wklepaæ ten adres w przegl¹darce, te¿ wykona siê GET)
+	- w odpowiedzi powinien pokazaæ siê JSON : { "message": "Hello World!" }
+	- obczajcie sobie klasê, która obs³uguje to ¿¹danie - HelloWorldController - jest to przyk³ad najprostszego endpointa restowego
+
+4. Dodatkowe info
+
+	- adres naszej aplikacji uruchomionej lokalnie to http://localhost:8080/api
+	- z ka¿dym ponownym uruchomieniem aplikacji w pamiêci tworzy siê testowa baza SQL- H2
+	- konsola bazy H2 jest pod adresem: http://localhost:8080/api/h2-console
+	- ¿eby siê zalogowaæ do konsoli, trzeba tylko uzupe³niæ JDBC URL: jdbc:h2:mem:testdb
+	- Hibernate tworzy schemat bazy danych, constrains, itd., konsolki u¿ywamy tylko do data-pumpów (wrzucenie mocków)
+	
+
+	
