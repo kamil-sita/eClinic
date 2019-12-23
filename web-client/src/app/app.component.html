@@ -1,13 +1,27 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-expand navbar-light bg-primary">
+  <button (click)="sidebar.toggle()" class="btn btn-outline-light fa fa-bars"></button>
+
+  <span class="nav-item text-white text-xl-center ml-3">Nawigacja</span>
+
+  <ul class="navbar-nav mx-auto">
+    <li class="fa fa-2x fa-medkit text-white mr-2 my-auto"></li>
+    <li class="text-white my-auto ml-2">E-Przychodnia</li>
+  </ul>
+
+  <span class="text-black-50"><i class="fa fa-2x fa-user mr-2"></i></span>
+  <button class="btn btn-sm btn-warning">Logowanie</button>
+</nav>
+
 <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <h1>Hello</h1>
-    </div>
-    <div class="col-md-6">
-      <h1>Bootstrap test</h1>
-    </div>
-  </div>
+  <mat-drawer-container>
+    <mat-drawer #sidebar mode="side">
+      I'm a drawer
+    </mat-drawer>
+    <mat-drawer-content>
+
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
+
 
 <router-outlet></router-outlet>
