@@ -20,8 +20,6 @@ public class HelloWorldController {
 
     @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JsonNode> sayHello(){
-
-
         JsonNode jsonResponse = null;
         try {
             jsonResponse = (new ObjectMapper().readTree("{\"message\": \"Hello World!\"}"));
