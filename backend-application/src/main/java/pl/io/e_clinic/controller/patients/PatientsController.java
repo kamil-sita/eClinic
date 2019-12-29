@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.io.e_clinic.entity.document.model.Document;
+import pl.io.e_clinic.entity.user.MedicalHistory;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.user.repository.UserRepository;
+import pl.io.e_clinic.entity.visit.model.Visit;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -75,6 +77,14 @@ public class PatientsController {
         Optional<User> user = userRepository.findById(user_id);
 
         return user.orElse(null);
+    }
+
+    @GetMapping(value = "/{user_id}/history", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody MedicalHistory getHistory(@PathVariable Long user_id) {
+
+        Optional<User> user = userRepository.findById(user_id);
+
+        return user.map(MedicalHistory::new).orElse(null);
     }
 
     @GetMapping(value = "/teapot", produces = MediaType.APPLICATION_JSON_VALUE)

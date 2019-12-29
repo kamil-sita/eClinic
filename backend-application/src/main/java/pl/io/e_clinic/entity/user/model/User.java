@@ -1,8 +1,6 @@
 package pl.io.e_clinic.entity.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import net.minidev.json.annotate.JsonIgnore;
-import org.springframework.data.rest.core.annotation.RestResource;
 import pl.io.e_clinic.entity.visit.model.Visit;
 
 import javax.persistence.*;
