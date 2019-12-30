@@ -32,4 +32,16 @@ public class Employee {
     public Set<Visit> getVisits() {
         return visits;
     }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
 }
