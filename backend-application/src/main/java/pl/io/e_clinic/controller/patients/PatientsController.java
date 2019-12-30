@@ -27,10 +27,10 @@ public class PatientsController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<User> getPatients(
-            @RequestParam(value="first_name", required=false) String firstName, //contains
-            @RequestParam(value="last_name", required=false) String lastName, //contains
-            @RequestParam(value="contact_number", required=false) String contactNumber, //contains
-            @RequestParam(value="user_id", required=false) Long userId //contains
+            @RequestParam(value="first_name", required=false) String firstName,
+            @RequestParam(value="last_name", required=false) String lastName,
+            @RequestParam(value="contact_number", required=false) String contactNumber,
+            @RequestParam(value="user_id", required=false) Long userId
     ) {
         long count = userRepository.count();
 
@@ -85,6 +85,30 @@ public class PatientsController {
         Optional<User> user = userRepository.findById(user_id);
 
         return user.map(MedicalHistory::new).orElse(null);
+    }
+
+    @GetMapping(value = "/{user_id}/visits", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Set<Visit> getVisits(@PathVariable Long user_id, @RequestParam(value="date", required=false) Date date) {
+        Optional<User> user = userRepository.findById(user_id);
+
+        if (!user.isPresent()) return null;
+
+        Set<Visit> visits = user.get().getVisits();
+
+        if (date != null) {
+            visits = visits.stream().filter((Visit visit) -> {
+                //sprawdza czy TYLKO DZIEŃ MIESIĄC I ROK są równe
+                Calendar cal1 = Calendar.getInstance();
+                Calendar cal2 = Calendar.getInstance();
+                cal1.setTime(date);
+                cal2.setTime(visit.getScheduledDate());
+                return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                        cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+            }).collect(Collectors.toSet());
+        }
+
+
+        return visits;
     }
 
     @GetMapping(value = "/teapot", produces = MediaType.APPLICATION_JSON_VALUE)
