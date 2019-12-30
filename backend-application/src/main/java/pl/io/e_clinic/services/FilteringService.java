@@ -4,8 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Chainowalny filter, w którym argumenty mogą być nullami
- * @param <T>
+ * Chainowalny filter, w którym argumenty mogą być nullami.
+ *
+ * Przykładowe użycie (patrz PatientsController):
+ *
+ * List<User> patients = users.getContent();
+ *
+ * //opcjonalne filtrowanie
+ * patients = new FilteringService<>(patients)
+ *         .contains(firstName, User::getFirstName)
+ *         .contains(lastName, User::getLastName)
+ *         .contains(contactNumber, User::getContactNumber)
+ *         .contains(userId, User::getUserId)
+ *         .getFiltered();
  */
 public class FilteringService<T> {
 
@@ -26,7 +37,7 @@ public class FilteringService<T> {
                 .stream()
                 .filter(
                         (T t) -> {
-                            return ("" + getter).contains("" + match);
+                            return ("" + getter.getLong(t)).contains("" + match);
                         })
                 .collect(Collectors.toList());
         return this;

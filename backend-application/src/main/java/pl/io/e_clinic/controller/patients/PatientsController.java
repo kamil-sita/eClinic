@@ -76,7 +76,7 @@ public class PatientsController {
     public @ResponseBody Set<Visit> getVisits(@PathVariable Long user_id, @RequestParam(value="date", required=false) Date date) {
         Optional<User> user = userRepository.findById(user_id);
 
-        if (!user.isPresent()) return null;
+        if (!user.isPresent()) return new HashSet<>();
 
         Set<Visit> visits = user.get().getVisits();
 

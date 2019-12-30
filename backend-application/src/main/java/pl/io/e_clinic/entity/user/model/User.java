@@ -15,54 +15,54 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    protected Long userId;
 
     @NotBlank
     @Size(max = 20, message = "first name can be up to 20 characters long")
     @Column(name = "first_name", nullable = false)
-    private String firstName;
+    protected String firstName;
 
     @NotBlank
     @Size(max = 20, message = "last name can be up to 20 characters long")
     @Column(name = "last_name", nullable = false)
-    private String lastName;
+    protected String lastName;
 
     @NotBlank
     @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "sex_id", nullable = false)
-    private Sex sex;
+    protected Sex sex;
 
     @NotBlank
     @Size(max = 15, message = "pesel can be up to 15 characters long")
     @Column(name = "pesel", nullable = false)
-    private String pesel;
+    protected String pesel;
 
     @NotBlank
     @Size(max = 100, message = "address can be up to 100 characters long")
     @Column(name = "address", nullable = false)
-    private String address;
+    protected String address;
 
     @NotBlank
     @Size(max = 20, message = "contact number can be up to 20 characters long")
     @Column(name = "contact_number", nullable = false)
-    private String contactNumber;
+    protected String contactNumber;
 
     @Size(max = 300, message = "other info can be up to 300 characters long")
     @Column(name = "other_info", nullable = true)
-    private String otherInfo;
+    protected String otherInfo;
 
     @NotBlank
     @Size(max = 30, message = "username can be up to 30 characters long")
     @Column(name = "username", nullable = false)
-    private String username;
+    protected String username;
 
     @NotBlank
     @Size(max = 30, message = "address can be up to 30 characters long")
     @Column(name = "password", nullable = false)
-    private String password;
+    protected String password;
 
     @OneToMany(mappedBy = "patient")
-    private Set<Visit> visits;
+    protected Set<Visit> visits;
 
 
     public boolean passwordEqual(String password) {
