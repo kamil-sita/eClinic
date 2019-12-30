@@ -1,4 +1,4 @@
-package pl.io.e_clinic.entity.user;
+package pl.io.e_clinic.services;
 
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.document.model.DocumentType;
@@ -13,11 +13,15 @@ import java.util.List;
 /**
  * Klasa ta reprezentuje historię choroby, ale nie istnieje w bazie danych i jest generowana na życzenie
  */
-public class MedicalHistory {
+public class MedicalHistoryService {
 
     private List<MedicalHistoryElement> history = new ArrayList();
 
-    public MedicalHistory(User user) {
+    /**
+     * Tworzy historię choroby danego użytkownika, posortowaną datami (rosnąco)
+     * @param user
+     */
+    public MedicalHistoryService(User user) {
         List<Visit> visits = new ArrayList<>(user.getVisits());
 
         visits.sort(Comparator.comparing(Visit::getScheduledDate));

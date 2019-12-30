@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.io.e_clinic.entity.document.model.Document;
-import pl.io.e_clinic.entity.user.MedicalHistory;
+import pl.io.e_clinic.services.FilteringService;
+import pl.io.e_clinic.services.MedicalHistoryService;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.user.repository.UserRepository;
 import pl.io.e_clinic.entity.visit.model.Visit;
@@ -45,28 +45,12 @@ public class PatientsController {
         List<User> patients = users.getContent();
 
         //opcjonalne filtrowanie
-        if (firstName != null) {
-            patients = patients.stream().filter(user -> user.getFirstName().toLowerCase()
-                .contains(firstName.toLowerCase()))
-                .collect(Collectors.toList());
-        }
-        if (lastName != null) {
-            patients = patients.stream().filter(user -> user.getLastName().toLowerCase()
-                .contains(lastName.toLowerCase()))
-                .collect(Collectors.toList());
-        }
-        if (contactNumber != null) {
-            patients = patients.stream().filter(user -> user.getContactNumber()
-                .contains(contactNumber))
-                .collect(Collectors.toList());
-        }
-        if (userId != null) {
-            String userIdString = "" + userId;
-            patients = patients.stream().filter(user -> {
-                     String comparedUserIdString = "" + user.getUserId();
-                     return comparedUserIdString.contains(userIdString);
-                 }).collect(Collectors.toList());
-        }
+        patients = new FilteringService<>(patients)
+                .contains(firstName, User::getFirstName)
+                .contains(lastName, User::getLastName)
+                .contains(contactNumber, User::getContactNumber)
+                .contains(userId, User::getUserId)
+                .getFiltered();
 
         return patients;
     }
@@ -80,11 +64,12 @@ public class PatientsController {
     }
 
     @GetMapping(value = "/{user_id}/history", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody MedicalHistory getHistory(@PathVariable Long user_id) {
+    public @ResponseBody
+    MedicalHistoryService getHistory(@PathVariable Long user_id) {
 
         Optional<User> user = userRepository.findById(user_id);
 
-        return user.map(MedicalHistory::new).orElse(null);
+        return user.map(MedicalHistoryService::new).orElse(null);
     }
 
     @GetMapping(value = "/{user_id}/visits", produces = MediaType.APPLICATION_JSON_VALUE)
