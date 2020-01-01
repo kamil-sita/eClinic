@@ -13,6 +13,7 @@ import pl.io.e_clinic.services.FilteringService;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/visits")
@@ -51,5 +52,13 @@ public class VisitsController {
                 .getFiltered();
 
         return filteredVisits;
+    }
+
+    @GetMapping(value = "/{visit_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Visit getPatient(@PathVariable Long visit_id) {
+
+        Optional<Visit> Visit = visitRepository.findById(visit_id);
+
+        return Visit.orElse(null);
     }
 }

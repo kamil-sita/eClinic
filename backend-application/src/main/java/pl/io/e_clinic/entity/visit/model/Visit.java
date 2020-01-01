@@ -90,4 +90,8 @@ public class Visit {
     public Time getStartingTime() {
         return startingTime;
     }
+
+    public VisitStatus getVisitState() {
+        return visitState;
+    }
 }
