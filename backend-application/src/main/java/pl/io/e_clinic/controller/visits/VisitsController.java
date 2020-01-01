@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.visit.model.Visit;
 import pl.io.e_clinic.entity.visit.repository.VisitRepository;
@@ -57,8 +58,20 @@ public class VisitsController {
     @GetMapping(value = "/{visit_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Visit getPatient(@PathVariable Long visit_id) {
 
-        Optional<Visit> Visit = visitRepository.findById(visit_id);
+        Optional<Visit> visit = visitRepository.findById(visit_id);
 
-        return Visit.orElse(null);
+        return visit.orElse(null);
+    }
+
+    @GetMapping(value = "/{visit_id}/documents", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<Document> getDocuments(@PathVariable Long visit_id) {
+        Optional<Visit> visit = visitRepository.findById(visit_id);
+
+        if (visit.isPresent()) {
+            return new ArrayList<>(visit.get().getDocuments());
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 }
