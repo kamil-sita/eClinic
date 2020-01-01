@@ -1,5 +1,6 @@
 package pl.io.e_clinic.services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,9 @@ public class FilteringService<T> {
         return filteredList;
     }
 
+    /**
+     * Filtruje według Longa match.
+     */
     public FilteringService<T> contains(Long match, LongGetter<T> getter) {
         if (match == null) return this;
 
@@ -43,6 +47,9 @@ public class FilteringService<T> {
         return this;
     }
 
+    /**
+     * Filtruje według stringa match. Ignoruje case.
+     */
     public FilteringService<T> contains(String match, StringGetter<T> getter) {
         if (match == null) return this;
 
@@ -63,6 +70,23 @@ public class FilteringService<T> {
 
     }
 
+    /**
+     * Filtruje według daty match. Daty muszą być równe co do dnia.
+     */
+    public FilteringService<T> contains(Date match, DateGetter<T> getter) {
+        if (match == null) return this;
+
+        filteredList = filteredList
+                .stream()
+                .filter(
+                        (T t) -> {
+                            return DateService.isDayEqual(getter.getDate(t), match);
+                        })
+                .collect(Collectors.toList());
+        return this;
+
+    }
+
     @FunctionalInterface
     public interface StringGetter<T> {
         String getString(T obj);
@@ -71,6 +95,11 @@ public class FilteringService<T> {
     @FunctionalInterface
     public interface LongGetter<T> {
         Long getLong(T obj);
+    }
+
+    @FunctionalInterface
+    public interface DateGetter<T> {
+        Date getDate(T obj);
     }
 
 }
