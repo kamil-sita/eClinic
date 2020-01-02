@@ -10,15 +10,13 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
-import pl.io.e_clinic.entity.user.model.User;
+import pl.io.e_clinic.entity.medicalservice.repository.MedicalServiceRepository;
 import pl.io.e_clinic.entity.visit.model.Visit;
 import pl.io.e_clinic.entity.visit.repository.VisitRepository;
 import pl.io.e_clinic.services.FilteringService;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/visits")
@@ -26,6 +24,9 @@ public class VisitsController {
 
     @Autowired
     VisitRepository visitRepository;
+
+    @Autowired
+    MedicalServiceRepository medicalServiceRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<Visit> getVisits(
@@ -84,7 +85,7 @@ public class VisitsController {
         Optional<Visit> visit = visitRepository.findById(visit_id);
 
         if (visit.isPresent()) {
-            return new ArrayList<>(visit.get().getVisitMedicalServices());
+            return new ArrayList<>(visit.get().getMedicalServices());
         } else {
             return new ArrayList<>();
         }
@@ -93,20 +94,30 @@ public class VisitsController {
     @PutMapping(value = "/{visit_id}/services", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MedicalService>> putServices(
             @PathVariable Long visit_id,
-            @RequestBody MultiValueMap<String, String> formParams //parametry: "service_id"
+            @RequestBody Set<Long> request
     ) {
-        final String service_id = "service_id";
-        if (!formParams.containsKey(service_id)) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+
+        if (!optionalVisit.isPresent() || request == null || request.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<Visit> visit = visitRepository.findById(visit_id);
+        Visit visit = optionalVisit.get();
 
-        return null;
+        for (MedicalService service : medicalServiceRepository.findAll()) {
+            if (request.contains(service.getMedicalServiceId())) { //powinno posiadać
+                if (!service.getVisits().contains(visit)) { // i nie posiada
+                    service.getVisits().add(visit);
+                    medicalServiceRepository.save(service);
+                }
+            } else { //nie powinno posiadać
+                if (service.getVisits().contains(visit)) { //i posiada
+                    service.getVisits().remove(visit);
+                    medicalServiceRepository.save(service);
+                }
+            }
+        }
 
-       // if (visit.isPresent()) {
-       //     return new ArrayList<>(visit.get().getMappedVisitMedicalServices());
-       // } else {
-       //     return new ArrayList<>();
-       // }
+        return new ResponseEntity<>(getServices(visit_id), HttpStatus.ACCEPTED);
     }
 }

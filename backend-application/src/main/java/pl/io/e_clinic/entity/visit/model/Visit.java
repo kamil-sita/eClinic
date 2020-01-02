@@ -61,7 +61,7 @@ public class Visit {
     @ManyToMany(mappedBy = "visits")
     private Set<MedicalService> visitMedicalServices;
 
-    public Set<MedicalService> getVisitMedicalServices() {
+    public Set<MedicalService> getMedicalServices() {
         return visitMedicalServices;
     }
 

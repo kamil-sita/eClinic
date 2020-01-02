@@ -13,8 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "medical_service")
-
-@JsonIgnoreProperties(value = {"visits", "privilegeRequirements"})
+@JsonIgnoreProperties(value = {"visits", "privileges"})
 public class MedicalService {
 
     @Id
@@ -29,8 +28,7 @@ public class MedicalService {
     private String serviceName;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.ALL
     })
     @JoinTable(name = "visit_medical_services",
             joinColumns = @JoinColumn(name = "service_id"),
