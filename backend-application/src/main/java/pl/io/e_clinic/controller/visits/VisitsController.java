@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.io.e_clinic.entity.document.model.Document;
+import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.visit.model.Visit;
 import pl.io.e_clinic.entity.visit.repository.VisitRepository;
@@ -69,6 +70,18 @@ public class VisitsController {
 
         if (visit.isPresent()) {
             return new ArrayList<>(visit.get().getDocuments());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+
+    @GetMapping(value = "/{visit_id}/services", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<MedicalService> getServices(@PathVariable Long visit_id) {
+        Optional<Visit> visit = visitRepository.findById(visit_id);
+
+        if (visit.isPresent()) {
+            return new ArrayList<>(visit.get().getMappedVisitMedicalServices());
         } else {
             return new ArrayList<>();
         }

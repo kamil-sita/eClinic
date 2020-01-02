@@ -3,6 +3,7 @@ package pl.io.e_clinic.entity.visit.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.employee.model.Employee;
+import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.user.model.Sex;
 import pl.io.e_clinic.entity.user.model.User;
 
@@ -11,11 +12,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "visit")
-@JsonIgnoreProperties(value = {"documents"})
+@JsonIgnoreProperties(value = {"documents", "visitMedicalServices", "mappedVisitMedicalServices"})
 public class Visit {
 
     @Id
@@ -60,6 +62,12 @@ public class Visit {
 
     @OneToMany(mappedBy = "visit")
     private Set<VisitMedicalServices> visitMedicalServices;
+
+    public Set<MedicalService> getMappedVisitMedicalServices() {
+        Set<MedicalService> mappedSet = new HashSet<>();
+        visitMedicalServices.forEach((VisitMedicalServices vms) -> mappedSet.add(vms.getMedicalService()));
+        return mappedSet;
+    }
 
     public Date getScheduledDate() {
         return scheduledDate;

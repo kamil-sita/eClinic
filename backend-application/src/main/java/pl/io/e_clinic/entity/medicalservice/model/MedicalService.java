@@ -1,6 +1,7 @@
 package pl.io.e_clinic.entity.medicalservice.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.io.e_clinic.entity.visit.model.VisitMedicalServices;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "medical_service")
+
+@JsonIgnoreProperties(value = {"visitMedicalServices", "privilegeRequirements"})
 public class MedicalService {
 
     @Id
