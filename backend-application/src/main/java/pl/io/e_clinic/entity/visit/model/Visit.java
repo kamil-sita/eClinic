@@ -58,6 +58,8 @@ public class Visit {
     @Column(name = "starting_time", nullable = false)
     private Time startingTime;
 
+    @OneToMany(mappedBy = "visit")
+    private Set<VisitMedicalServices> visitMedicalServices;
 
     public Date getScheduledDate() {
         return scheduledDate;

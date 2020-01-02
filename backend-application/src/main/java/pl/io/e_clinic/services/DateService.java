@@ -3,7 +3,7 @@ package pl.io.e_clinic.services;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class DateService { //dating service
+public class DateService {
     public static boolean isDayEqual(Date date, Date date2) {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();

@@ -72,6 +72,6 @@ public class VisitsController {
         } else {
             return new ArrayList<>();
         }
-
     }
+
 }
