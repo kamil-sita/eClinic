@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.employee.model.Employee;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
-import pl.io.e_clinic.entity.user.model.Sex;
 import pl.io.e_clinic.entity.user.model.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashSet;
@@ -17,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "visit")
-@JsonIgnoreProperties(value = {"documents", "visitMedicalServices", "mappedVisitMedicalServices"})
+@JsonIgnoreProperties(value = {"documents", "visitMedicalServices"})
 public class Visit {
 
     @Id
@@ -60,13 +58,11 @@ public class Visit {
     @Column(name = "starting_time", nullable = false)
     private Time startingTime;
 
-    @OneToMany(mappedBy = "visit")
-    private Set<VisitMedicalServices> visitMedicalServices;
+    @ManyToMany(mappedBy = "visits")
+    private Set<MedicalService> visitMedicalServices;
 
-    public Set<MedicalService> getMappedVisitMedicalServices() {
-        Set<MedicalService> mappedSet = new HashSet<>();
-        visitMedicalServices.forEach((VisitMedicalServices vms) -> mappedSet.add(vms.getMedicalService()));
-        return mappedSet;
+    public Set<MedicalService> getVisitMedicalServices() {
+        return visitMedicalServices;
     }
 
     public Date getScheduledDate() {

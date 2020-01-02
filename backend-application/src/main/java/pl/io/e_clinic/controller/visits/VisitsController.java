@@ -3,7 +3,10 @@ package pl.io.e_clinic.controller.visits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
@@ -81,10 +84,29 @@ public class VisitsController {
         Optional<Visit> visit = visitRepository.findById(visit_id);
 
         if (visit.isPresent()) {
-            return new ArrayList<>(visit.get().getMappedVisitMedicalServices());
+            return new ArrayList<>(visit.get().getVisitMedicalServices());
         } else {
             return new ArrayList<>();
         }
     }
 
+    @PutMapping(value = "/{visit_id}/services", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MedicalService>> putServices(
+            @PathVariable Long visit_id,
+            @RequestBody MultiValueMap<String, String> formParams //parametry: "service_id"
+    ) {
+        final String service_id = "service_id";
+        if (!formParams.containsKey(service_id)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Optional<Visit> visit = visitRepository.findById(visit_id);
+
+        return null;
+
+       // if (visit.isPresent()) {
+       //     return new ArrayList<>(visit.get().getMappedVisitMedicalServices());
+       // } else {
+       //     return new ArrayList<>();
+       // }
+    }
 }
