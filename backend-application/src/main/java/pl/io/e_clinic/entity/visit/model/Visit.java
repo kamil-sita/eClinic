@@ -61,6 +61,21 @@ public class Visit {
     @ManyToMany(mappedBy = "visits")
     private Set<MedicalService> visitMedicalServices;
 
+    public Visit() {
+    }
+
+    public Visit(User patient, Employee employee, @NotNull Date scheduledDate, @NotNull PaymentStatus paymentStatus, @Min(0) Long estimatedDuration, @NotNull Time startingTime) {
+        this.patient = patient;
+        this.employee = employee;
+        this.scheduledDate = scheduledDate;
+        this.paymentStatus = paymentStatus;
+        this.estimatedDuration = estimatedDuration;
+        this.startingTime = startingTime;
+        this.visitState = VisitStatus.APPOINTED;
+        visitMedicalServices = new HashSet<>();
+        documents = new HashSet<>();
+    }
+
     public Set<MedicalService> getMedicalServices() {
         return visitMedicalServices;
     }

@@ -8,10 +8,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import pl.io.e_clinic.controller.visits.dto.VisitDto;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.document.repository.DocumentRepository;
+import pl.io.e_clinic.entity.employee.model.Employee;
+import pl.io.e_clinic.entity.employee.repository.EmployeeRepository;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.medicalservice.repository.MedicalServiceRepository;
+import pl.io.e_clinic.entity.user.model.User;
+import pl.io.e_clinic.entity.user.repository.UserRepository;
+import pl.io.e_clinic.entity.visit.model.PaymentStatus;
 import pl.io.e_clinic.entity.visit.model.Visit;
 import pl.io.e_clinic.entity.visit.repository.VisitRepository;
 import pl.io.e_clinic.services.FilteringService;
@@ -32,6 +38,12 @@ public class VisitsController {
 
     @Autowired
     DocumentRepository documentRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<Visit> getVisits(
@@ -127,7 +139,7 @@ public class VisitsController {
     }
 
     @PostMapping(value = "/{visit_id}/documents", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Document> putDocuments(
+    public ResponseEntity<Document> postDocuments(
             @PathVariable Long visit_id,
             @RequestBody Document document
     ) {
@@ -169,7 +181,48 @@ public class VisitsController {
                 visit,
                 editedDocument.getDocumentData()
         );
+
         return new ResponseEntity<>(documentRepository.save(persistentDocument), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Visit> postVisit(
+            @RequestBody VisitDto visitDto
+    ) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(visitDto.getEmployeeId());
+        Optional<User> optionalPatient = userRepository.findById(visitDto.getPatientId());
+        Optional<MedicalService> optionalMedicalService = medicalServiceRepository.findById(visitDto.getServiceId());
+
+        if (! (optionalEmployee.isPresent() && optionalPatient.isPresent() && optionalMedicalService.isPresent())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Visit visit = new Visit(
+                optionalPatient.get(),
+                optionalEmployee.get(),
+                visitDto.getScheduledDate(),
+                PaymentStatus.VISIT_UNKNOWN_NOT_PAID,
+                optionalMedicalService.get().getDuration(),
+                visitDto.getStartingTime()
+        );
+
+
+        //poniżej trochę namieszane, ale to dlatego że MedicalService ma ownership nad visit, wiec najpierw zapisujemy
+        //wizyte, potem do niego medicalService, ale musimy zwrocic wizyte z poprawnymi uslugami
+        Visit visit2 = visitRepository.save(visit);
+
+        visit = visitRepository.findById(visit2.getVisitId()).get();
+
+        optionalMedicalService.get().getVisits().add(visit);
+        medicalServiceRepository.save(optionalMedicalService.get());
+
+        //ale WIZYT NIE MA, poniewaz repozytorium sie nie odswieza!
+        // wiec udajemy ze odczytalismy obiekt - tworzymy nowy, ktory wyglada tak jak poprawna wersja
+
+        visit.getMedicalServices().clear();
+        visit.getMedicalServices().add(optionalMedicalService.get());
+
+        return new ResponseEntity<>(visit, HttpStatus.ACCEPTED);
 
     }
 
