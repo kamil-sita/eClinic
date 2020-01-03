@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import pl.io.e_clinic.entity.document.model.Document;
+import pl.io.e_clinic.entity.document.repository.DocumentRepository;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.medicalservice.repository.MedicalServiceRepository;
 import pl.io.e_clinic.entity.visit.model.Visit;
@@ -17,6 +18,7 @@ import pl.io.e_clinic.services.FilteringService;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/visits")
@@ -27,6 +29,9 @@ public class VisitsController {
 
     @Autowired
     MedicalServiceRepository medicalServiceRepository;
+
+    @Autowired
+    DocumentRepository documentRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<Visit> getVisits(
@@ -120,4 +125,53 @@ public class VisitsController {
 
         return new ResponseEntity<>(getServices(visit_id), HttpStatus.ACCEPTED);
     }
+
+    @PostMapping(value = "/{visit_id}/documents", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Document> putDocuments(
+            @PathVariable Long visit_id,
+            @RequestBody Document document
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+        if (!optionalVisit.isPresent() || document == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Visit visit = optionalVisit.get();
+        Document persistentDocument = new Document(document.getDocumentType(), visit, document.getDocumentData());
+
+        return new ResponseEntity<>(documentRepository.save(persistentDocument), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value = "/{visit_id}/documents/{document_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Document> putDocuments(
+            @PathVariable Long visit_id,
+            @PathVariable Long document_id,
+            @RequestBody Document editedDocument
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+        Optional<Document> optionalDocument = documentRepository.findById(document_id);
+
+        if (!optionalVisit.isPresent() || !optionalDocument.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Visit visit = optionalVisit.get();
+        Document originalDocument = optionalDocument.get();
+
+        if (!originalDocument.getVisit().equals(visit)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Document persistentDocument = new Document(
+                originalDocument.getDocumentId(),
+                editedDocument.getDocumentType(),
+                visit,
+                editedDocument.getDocumentData()
+        );
+        return new ResponseEntity<>(documentRepository.save(persistentDocument), HttpStatus.ACCEPTED);
+
+    }
+
+
 }

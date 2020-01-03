@@ -7,7 +7,9 @@ import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashSet;
@@ -31,30 +33,28 @@ public class Visit {
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", nullable = false)
     private Employee employee;
 
-    @NotBlank
+    @NotNull
     @Column(name = "scheduled_date", nullable = false)
     private Date scheduledDate;
 
     @OneToMany(mappedBy = "visit")
     private Set<Document> documents;
 
-    @NotBlank
+    @NotNull
     @Column(name = "payment_status", nullable = false)
     @Enumerated(value = EnumType.ORDINAL)
     private PaymentStatus paymentStatus;
 
-
-    @NotBlank
+    @NotNull
     @Column(name = "visit_state", nullable = false)
     @Enumerated(value = EnumType.ORDINAL)
     private VisitStatus visitState;
 
-
-    @NotBlank
+    @Min(0)
     @Column(name = "estimated_duration", nullable = false)
     private Long estimatedDuration;
 
-    @NotBlank
+    @NotNull
     @Column(name = "starting_time", nullable = false)
     private Time startingTime;
 
@@ -99,5 +99,10 @@ public class Visit {
 
     public VisitStatus getVisitState() {
         return visitState;
+    }
+
+    public Visit setDocuments(Set<Document> documents) {
+        this.documents = documents;
+        return this;
     }
 }
