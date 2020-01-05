@@ -5,6 +5,7 @@ import {LoginPageComponent} from "./commons/login-page/login-page.component";
 
 
 const routes: Routes = [
+  {path: '', redirectTo: '/homepage', pathMatch: 'full'},
   {path: 'homepage', component: HomePageComponent},
   {path: 'loginpage', component: LoginPageComponent},
 ];
