@@ -7,14 +7,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {CommonsModule} from "./commons/commons.module";
+import { RouterModule, Routes } from '@angular/router';
+import {HomePageComponent} from "./commons/home-page/home-page.component";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatFormFieldModule,
