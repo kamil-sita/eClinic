@@ -243,4 +243,72 @@ public class VisitsController {
         return new ResponseEntity<>(optionalVisit.get(), HttpStatus.ACCEPTED);
     }
 
+    @PutMapping(value = "/{visit_id}/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Visit> putVisitStatusConfirmed(
+            @PathVariable Long visit_id
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+        if (!optionalVisit.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        optionalVisit.get().setVisitState(VisitStatus.CONFIRMED);
+
+        visitRepository.save(optionalVisit.get());
+
+        return new ResponseEntity<>(optionalVisit.get(), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value = "/{visit_id}/open", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Visit> putVisitStatusOpened(
+            @PathVariable Long visit_id
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+        if (!optionalVisit.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        optionalVisit.get().setVisitState(VisitStatus.OPENED);
+
+        visitRepository.save(optionalVisit.get());
+
+        return new ResponseEntity<>(optionalVisit.get(), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value = "/{visit_id}/close", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Visit> putVisitStatusClosed(
+            @PathVariable Long visit_id
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+        if (!optionalVisit.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        optionalVisit.get().setVisitState(VisitStatus.CLOSED);
+
+        visitRepository.save(optionalVisit.get());
+
+        return new ResponseEntity<>(optionalVisit.get(), HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(value = "/{visit_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Visit> deleteVisit(
+            @PathVariable Long visit_id
+    ) {
+        Optional<Visit> optionalVisit = visitRepository.findById(visit_id);
+
+        if (!optionalVisit.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        optionalVisit.get().setVisitState(VisitStatus.CANCELLED);
+
+        visitRepository.save(optionalVisit.get());
+
+        return new ResponseEntity<>(optionalVisit.get(), HttpStatus.ACCEPTED);
+    }
+
 }
