@@ -11,7 +11,7 @@ import java.util.*;
 import pl.io.e_clinic.services.FilteringService;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/medical_services")
 public class ServiceController {
 
     @Autowired
