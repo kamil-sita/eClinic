@@ -4,5 +4,6 @@ public enum VisitStatus {
     APPOINTED,
     CONFIRMED,
     OPENED,
-    CLOSED;
+    CLOSED,
+    PAID;
 }
