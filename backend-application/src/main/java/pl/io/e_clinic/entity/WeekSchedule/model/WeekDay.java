@@ -1,4 +1,4 @@
-package pl.io.e_clinic.entity.WeekSchedule.model;
+package pl.io.e_clinic.entity.weekschedule.model;
 
 public enum WeekDay {
     PN,
