@@ -22,13 +22,14 @@ public class EmployeesController {
     @Autowired
     EmployeeRepository employeeRepository;
 
-//    @GetMapping(value = "/{employee_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public @ResponseBody
-//    EmployeeDto getEmployee(@PathVariable Long employee_id) {
-//        Optional<Employee> employee = employeeRepository.findById(employee_id);
-//
-//        return employeeDto;
-//    }
+
+    @GetMapping(value = "/{employee_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    EmployeeDto getEmployee(@PathVariable Long employee_id) {
+        Optional<Employee> employee = employeeRepository.findById(employee_id);
+
+        return new EmployeeDto(employee.orElse(null));
+    }
 
     @GetMapping(value = "/doctors", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
