@@ -42,6 +42,7 @@ public class WeekSchedule {
     public WeekSchedule() {
     }
 
+
     public Long getWeekScheduleId() {
         return weekScheduleId;
     }
