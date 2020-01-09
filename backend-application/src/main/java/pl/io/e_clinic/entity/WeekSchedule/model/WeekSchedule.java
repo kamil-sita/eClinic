@@ -13,7 +13,7 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "week_schedule")
-@JsonIgnoreProperties(value = {"weekScheduleId","employee"})
+@JsonIgnoreProperties(value = {"weekScheduleId","employee","employeeId"})
 public class WeekSchedule {
 
     @Id
@@ -55,6 +55,10 @@ public class WeekSchedule {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public Long getEmployeeId() {
+        return employee.getEmployeeId();
     }
 
     public void setEmployee(Employee employee) {
