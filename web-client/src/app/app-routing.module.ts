@@ -1,13 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './commons/home-page/home-page.component';
-import {LoginPageComponent} from "./commons/login-page/login-page.component";
+import {LoginPageComponent} from './commons/login-page/login-page.component';
+import {DoctorListComponent} from './doctors/doctor-list/doctor-list.component';
+
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/homepage', pathMatch: 'full'},
   {path: 'homepage', component: HomePageComponent},
   {path: 'loginpage', component: LoginPageComponent},
+  {path: 'doctorlist', component: DoctorListComponent}
 ];
 
 @NgModule({

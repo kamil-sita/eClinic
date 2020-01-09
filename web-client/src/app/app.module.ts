@@ -7,7 +7,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import {CommonsModule} from "./commons/commons.module";
+import { HttpClientModule } from '@angular/common/http';
+import {CommonsModule} from './commons/commons.module';
+import {DoctorsModule} from './doctors/doctors.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {CommonsModule} from "./commons/commons.module";
     MatSidenavModule,
     MatFormFieldModule,
     MatSelectModule,
-    CommonsModule
+    HttpClientModule,
+    CommonsModule,
+    DoctorsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
