@@ -1,14 +1,23 @@
 package pl.io.e_clinic.controller.employees;
 
+import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.io.e_clinic.controller.employees.dto.EmployeeDto;
 import pl.io.e_clinic.entity.employee.model.Employee;
 import pl.io.e_clinic.entity.employee.model.Role;
 import pl.io.e_clinic.entity.employee.repository.EmployeeRepository;
+import pl.io.e_clinic.entity.workflowholiday.model.WorkflowHoliday;
+import pl.io.e_clinic.entity.workflowholiday.repository.WorkflowHolidayRepository;
+import pl.io.e_clinic.entity.workflowovertime.model.WorkflowOvertime;
+import pl.io.e_clinic.entity.workflowovertime.repository.WorkflowOvertimeRepository;
+import pl.io.e_clinic.entity.workflowsicknote.model.WorkflowSickNote;
+import pl.io.e_clinic.entity.workflowsicknote.repository.WorkflowSickNoteRepository;
 import pl.io.e_clinic.services.FilteringService;
 
 import java.util.ArrayList;
@@ -37,6 +46,15 @@ public class EmployeesController {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    WorkflowHolidayRepository workflowHolidayRepository;
+
+    @Autowired
+    WorkflowSickNoteRepository workflowSickNoteRepository;
+
+    @Autowired
+    WorkflowOvertimeRepository workflowOvertimeRepository;
 
 
     @GetMapping(value = "/{employee_id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +89,78 @@ public class EmployeesController {
                 .getFiltered();
 
         return filteredEmployees;
+    }
+
+    @PostMapping (value = "/{user_id}/workflow/holiday_notes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<WorkflowHoliday> postWorkflowHoliday(@PathVariable Long user_id, @RequestBody WorkflowHoliday workflowHoliday) {
+        long count = employeeRepository.count();
+
+        if (count == 0) {
+            return new ResponseEntity<WorkflowHoliday>(HttpStatus.BAD_REQUEST);
+        }
+
+        Page<Employee> allEmployeesPages = employeeRepository.findAll(PageRequest.of(0, (int) count));
+
+        List<Employee> filteredEmployees = allEmployeesPages.getContent();
+
+        filteredEmployees = new FilteringService<>(filteredEmployees)
+                .contains(user_id, (Employee employee) -> employee.getUser().getUserId())
+                .getFiltered();
+
+        if (filteredEmployees.size() != 1){
+            return new ResponseEntity<WorkflowHoliday>(HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<WorkflowHoliday>(workflowHolidayRepository.save(new WorkflowHoliday(
+                filteredEmployees.get(0), workflowHoliday)), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping (value = "/{user_id}/workflow/sick_notes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<WorkflowSickNote> postWorkflowSickNote(@PathVariable Long user_id, @RequestBody WorkflowSickNote workflowSickNote) {
+        long count = employeeRepository.count();
+
+        if (count == 0) {
+            return new ResponseEntity<WorkflowSickNote>(HttpStatus.BAD_REQUEST);
+        }
+
+        Page<Employee> allEmployeesPages = employeeRepository.findAll(PageRequest.of(0, (int) count));
+
+        List<Employee> filteredEmployees = allEmployeesPages.getContent();
+
+        filteredEmployees = new FilteringService<>(filteredEmployees)
+                .contains(user_id, (Employee employee) -> employee.getUser().getUserId())
+                .getFiltered();
+
+        if (filteredEmployees.size() != 1){
+            return new ResponseEntity<WorkflowSickNote>(HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<WorkflowSickNote>(workflowSickNoteRepository.save(new WorkflowSickNote(
+                filteredEmployees.get(0), workflowSickNote)), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping (value = "/{user_id}/workflow/overtime_notes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<WorkflowOvertime> postWorkflowOvertime(@PathVariable Long user_id, @RequestBody WorkflowOvertime workflowOvertime) {
+        long count = employeeRepository.count();
+
+        if (count == 0) {
+            return new ResponseEntity<WorkflowOvertime>(HttpStatus.BAD_REQUEST);
+        }
+
+        Page<Employee> allEmployeesPages = employeeRepository.findAll(PageRequest.of(0, (int) count));
+
+        List<Employee> filteredEmployees = allEmployeesPages.getContent();
+
+        filteredEmployees = new FilteringService<>(filteredEmployees)
+                .contains(user_id, (Employee employee) -> employee.getUser().getUserId())
+                .getFiltered();
+
+        if (filteredEmployees.size() != 1){
+            return new ResponseEntity<WorkflowOvertime>(HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<WorkflowOvertime>(workflowOvertimeRepository.save(new WorkflowOvertime(
+                filteredEmployees.get(0), workflowOvertime)), HttpStatus.ACCEPTED);
     }
 
 
