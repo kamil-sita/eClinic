@@ -41,11 +41,6 @@ public class Visit {
     private Set<Document> documents;
 
     @NotNull
-    @Column(name = "payment_status", nullable = false)
-    @Enumerated(value = EnumType.ORDINAL)
-    private PaymentStatus paymentStatus;
-
-    @NotNull
     @Column(name = "visit_state", nullable = false)
     @Enumerated(value = EnumType.ORDINAL)
     private VisitStatus visitState;
@@ -64,11 +59,10 @@ public class Visit {
     public Visit() {
     }
 
-    public Visit(User patient, Employee employee, @NotNull Date scheduledDate, @NotNull PaymentStatus paymentStatus, @Min(0) Long estimatedDuration, @NotNull Time startingTime) {
+    public Visit(User patient, Employee employee, @NotNull Date scheduledDate, @Min(0) Long estimatedDuration, @NotNull Time startingTime) {
         this.patient = patient;
         this.employee = employee;
         this.scheduledDate = scheduledDate;
-        this.paymentStatus = paymentStatus;
         this.estimatedDuration = estimatedDuration;
         this.startingTime = startingTime;
         this.visitState = VisitStatus.APPOINTED;
@@ -100,10 +94,6 @@ public class Visit {
         return employee;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
     public Long getEstimatedDuration() {
         return estimatedDuration;
     }
@@ -119,5 +109,9 @@ public class Visit {
     public Visit setDocuments(Set<Document> documents) {
         this.documents = documents;
         return this;
+    }
+
+    public void setVisitState(VisitStatus visitState) {
+        this.visitState = visitState;
     }
 }
