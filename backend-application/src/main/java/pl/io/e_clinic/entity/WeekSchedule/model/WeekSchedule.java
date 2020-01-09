@@ -2,6 +2,7 @@ package pl.io.e_clinic.entity.weekschedule.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.io.e_clinic.entity.room.model.Room;
 import pl.io.e_clinic.entity.employee.model.Employee;
 
@@ -12,6 +13,7 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "week_schedule")
+@JsonIgnoreProperties(value = {"weekScheduleId","employee"})
 public class WeekSchedule {
 
     @Id
