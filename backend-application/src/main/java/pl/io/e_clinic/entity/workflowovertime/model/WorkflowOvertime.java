@@ -3,6 +3,7 @@ package pl.io.e_clinic.entity.workflowovertime.model;
 import pl.io.e_clinic.entity.employee.model.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
@@ -28,15 +29,6 @@ public class WorkflowOvertime {
     @Column(name = "overtime_duration", nullable = false)
     private Time overtimeDuration;
 
-    public WorkflowOvertime() {
-    }
-
-    public WorkflowOvertime(Employee employee, Date overtimeDay, Time overtimeDuration) {
-        this.employee = employee;
-        this.overtimeDay = overtimeDay;
-        this.overtimeDuration = overtimeDuration;
-    }
-
     public Long getWorkflowOvertimeId() { return workflowOvertimeId; }
 
     public Employee getEmployee() { return employee; }
@@ -44,4 +36,13 @@ public class WorkflowOvertime {
     public Date getOvertimeDay() { return overtimeDay; }
 
     public Time getOvertimeDuration() { return overtimeDuration; }
+
+    public WorkflowOvertime(@NotBlank Employee employee, @NotBlank WorkflowOvertime workflowOvertime) {
+        this.employee = employee;
+        this.overtimeDay = workflowOvertime.overtimeDay;
+        this.overtimeDuration = workflowOvertime.overtimeDuration;
+    }
+
+    public WorkflowOvertime() {
+    }
 }

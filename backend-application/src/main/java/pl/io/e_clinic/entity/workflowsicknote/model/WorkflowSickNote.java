@@ -1,8 +1,10 @@
 package pl.io.e_clinic.entity.workflowsicknote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.io.e_clinic.entity.employee.model.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
@@ -27,15 +29,6 @@ public class WorkflowSickNote {
     @Column(name = "sick_day_end", nullable = false)
     private Date sickDayEnd;
 
-    public WorkflowSickNote() {
-    }
-
-    public WorkflowSickNote(Employee employee, Date sickDayStart, Date sickDayEnd) {
-        this.employee = employee;
-        this.sickDayStart = sickDayStart;
-        this.sickDayEnd = sickDayEnd;
-    }
-
     public Long getWorkflowSickNoteId() { return workflowSickNoteId; }
 
     public Employee getEmployee() { return employee; }
@@ -43,4 +36,13 @@ public class WorkflowSickNote {
     public Date getSickDayStart() { return sickDayStart; }
 
     public Date getSickDayEnd() { return sickDayEnd; }
+
+    public WorkflowSickNote(@NotBlank Employee employee, @NotBlank WorkflowSickNote workflowSickNote) {
+        this.employee = employee;
+        this.sickDayStart = workflowSickNote.sickDayStart;
+        this.sickDayEnd = workflowSickNote.sickDayEnd;
+    }
+
+    public WorkflowSickNote() {
+    }
 }
