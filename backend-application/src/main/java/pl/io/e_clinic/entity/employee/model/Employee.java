@@ -30,7 +30,6 @@ public class Employee {
     @Enumerated(value = EnumType.ORDINAL)
     private Role role;
 
-
     @ElementCollection(targetClass = Privilege.class)
     @CollectionTable(name = "privilege_list",
             joinColumns = @JoinColumn(name = "employee_id")
@@ -38,6 +37,8 @@ public class Employee {
     @Column(name = "privilege_id")
     @Enumerated(value = EnumType.ORDINAL)
     private Set<Privilege> privileges;
+
+    public Set<Privilege> getPrivileges() { return privileges; }
 
     public Set<Visit> getVisits() {
         return visits;
