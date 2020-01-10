@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Doctor} from '../../data/doctors/doctor';
-import {DoctorListService} from '../../services/doctor-list.service';
+import {DoctorsService} from '../../services/doctors.service';
+import {ActivatedRoute} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-doctor-list',
@@ -10,11 +12,14 @@ import {DoctorListService} from '../../services/doctor-list.service';
 export class DoctorListComponent implements OnInit {
 
   doctorList : Doctor[];
+  name: string = '';
+  surname: string = '';
 
-  constructor(private doctorListService: DoctorListService) { }
+  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.doctorListService.getDoctorList().subscribe(doctor => this.doctorList = doctor);
+    this.doctorsService.getDoctorList(this.name, this.surname).subscribe(doctor => this.doctorList = doctor);
   }
 
 }
