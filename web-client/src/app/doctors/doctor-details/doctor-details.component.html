@@ -10,6 +10,7 @@
   </div>
   <div class="col-md">
     <h2>Akcje:</h2>
+    <button (click)="backClicked()" style="margin-right: 5px" class="btn btn-danger"><-- Wróć</button>
     <a href="/doctorlist/{{doctor.user.userId}}/schedule" style="margin-right: 5px"><button class="btn btn-danger">Pokaż grafik</button></a>
     <a href="/doctorlist/{{doctor.user.userId}}/workflow"><button class="btn btn-danger">Ciągłość pracy</button></a>
   </div>
