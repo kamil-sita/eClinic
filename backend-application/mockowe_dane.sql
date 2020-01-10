@@ -191,6 +191,7 @@ insert into privilege_requirement (service_id, privilege_id) values (2, 5);
 insert into privilege_requirement (service_id, privilege_id) values (2, 11);
 insert into privilege_requirement (service_id, privilege_id) values (3, 0);
 insert into privilege_requirement (service_id, privilege_id) values (4, 3);
+<<<<<<< HEAD
 insert into privilege_requirement (service_id, privilege_id) values (5, 3);
 
 insert into room (room_id, room_name) values (19,'podstawowy');
@@ -212,3 +213,6 @@ insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_
 insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (12,2,4,'11:00','16:00',20);
 insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (13,2,5,'11:00','16:00',20);
 insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (14,2,6,'11:00','16:00',20);
+=======
+insert into privilege_requirement (service_id, privilege_id) values (5, 3);
+>>>>>>> parent of 7fee282... Delete mockowe_dane.sql
