@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {CommonsModule} from './commons/commons.module';
 import {DoctorsModule} from './doctors/doctors.module';
+import {PatientsModule} from './patients/patients.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {DoctorsModule} from './doctors/doctors.module';
     HttpClientModule,
     FormsModule,
     CommonsModule,
-    DoctorsModule
+    DoctorsModule,
+    PatientsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

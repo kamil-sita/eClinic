@@ -1,1 +1,25 @@
-<p>patient-list works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Wyszukaj:</h2>
+    <form (ngSubmit)="ngOnInit()">
+      <div class="col-md">
+        <h3>Imię: </h3>
+        <input type="text" id="name" [(ngModel)]="name" name="name">
+      </div>
+      <div class="col-md">
+        <h3>Nazwisko: </h3>
+        <input type="text" id="surname" [(ngModel)]="surname" name="surname">
+      </div>
+      <input name="search" type="submit" value="Szukaj">
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h2>Lista pacjentów</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let patient of patientList">
+        {{patient.firstName + " " + patient.lastName}}
+        <a href="/patientlist/{{patient.userId}}"><button class="btn btn-danger">Więcej</button></a>
+      </li>
+    </ul>
+  </div>
+</div>

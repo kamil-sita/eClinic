@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import {Patient} from '../../data/patients/patient';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {PatientsService} from '../../services/patients.service';
+
+@Component({
+  selector: 'app-patient-details',
+  templateUrl: './patient-details.component.html',
+  styleUrls: ['./patient-details.component.css']
+})
+export class PatientDetailsComponent implements OnInit {
+
+  patient:Patient;
+  userId;
+
+  constructor(private patientsService: PatientsService, private route: ActivatedRoute, private location: Location) { }
+
+  ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get('id');
+    this.patientsService.getPatient(this.userId).subscribe(pat => this.patient = pat);
+  }
+
+  backClicked() {
+    this.location.back();
+  }
+
+}

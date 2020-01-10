@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md">
+    <h2> Dane pacjenta {{patient.firstName + " " + patient.lastName}}:</h2>
+    <p>Nazwa użytkownika - {{patient.username}}</p>
+    <p>Płeć - {{patient.sex == 'MALE' ? 'Mężczyzna' : 'Kobieta'}}</p>
+    <p>Pesel - {{patient.pesel}}</p>
+    <p>Adres - {{patient.address}}</p>
+    <p>Nr tel - {{patient.contactNumber}}</p>
+    <p>Inne informacje - {{patient.otherInfo}}</p>
+  </div>
+  <div class="col-md">
+    <h2>Akcje:</h2>
+    <button (click)="backClicked()" style="margin-right: 5px; margin-bottom: 5px" class="btn btn-danger"><-- Wróć</button>
+    <a href="/visitlist/{{patient.userId}}" style="margin-right: 5px; margin-bottom: 5px"><button class="btn btn-danger">Lista wizyt</button></a>
+    <a href="/visitlist/{{patient.userId}}/add" style="margin-right: 5px; margin-bottom: 5px"><button class="btn btn-danger">Dodaj wizytę</button></a>
+    <a href="/patientlist/{{patient.userId}}/history"><button class="btn btn-danger">Historia chorobowa</button></a>
+  </div>
+
+</div>
