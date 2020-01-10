@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import pl.io.e_clinic.controller.employees.dto.ScheduleDto;
 import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.employee.repository.EmployeeRepository;
 import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
@@ -90,10 +91,12 @@ public class EmployeesController {
     @PutMapping(value = "/{employee_id}/schedule", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<WeekSchedule>> putSchedule(
             @PathVariable Long employee_id,
-            @RequestBody List<WeekSchedule> schedule
+            @RequestBody List<ScheduleDto> schedule
     ) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employee_id);
-
+        if (!optionalEmployee.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         //pobranie wszystkiego dla konkretnego pracownika
 
         long count = weekScheduleRepository.count();
@@ -101,23 +104,29 @@ public class EmployeesController {
 
         List<WeekSchedule> scheduleList = schedulePage.getContent();
         //filtrowanie do grafiku danego pracownika
-        scheduleList = new FilteringService<>(schedule)
+        scheduleList = new FilteringService<>(scheduleList)
                 .contains(employee_id, WeekSchedule::getEmployeeId)
                 .getFiltered();
 
+        int day=0;
         for(WeekSchedule currentSchedule : scheduleList){
-            if(currentSchedule.getWeekDay()== WeekDay.PN){
-               // cur
+            if(currentSchedule.getWeekDay()== WeekDay.values()[day]){
+               for(int i=0;i<schedule.size();i++){
+                   if(schedule.get(i).getWeekDay()==WeekDay.values()[day]){
+                       currentSchedule.setRoom(schedule.get(i).getRoom());
+                       currentSchedule.setStartingTime(schedule.get(i).getStartingTime());
+                       currentSchedule.setEndingTime(schedule.get(i).getEndingTime());
+                   }
+               }
             }
+            day++;
         }
 
-
-        if (!optionalEmployee.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        weekScheduleRepository.saveAll(scheduleList);
 
 
-        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+
+        return new ResponseEntity<>(scheduleList, HttpStatus.ACCEPTED);
     }
 
 }

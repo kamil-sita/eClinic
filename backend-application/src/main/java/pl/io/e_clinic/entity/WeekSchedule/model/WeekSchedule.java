@@ -17,11 +17,11 @@ import java.sql.Time;
 public class WeekSchedule {
 
     @Id
-    @JoinColumn(name = "week_schedule_id", nullable = false)
+    @Column(name = "week_schedule_id", nullable = false)
     private Long weekScheduleId;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id",nullable = false)
+    @JoinColumn(name = "employee_id",referencedColumnName = "employee_id",nullable = false)
     protected Employee employee;
 
     @NotBlank
@@ -41,7 +41,17 @@ public class WeekSchedule {
     @JoinColumn(name = "room_id", nullable = false)
     protected Room room;
 
-    public WeekSchedule() {
+    public WeekSchedule(){
+
+    }
+
+    public WeekSchedule(Long weekScheduleId, Employee employee, WeekDay weekDay, Time startingTime, Time endingTime, Room room) {
+        this.weekScheduleId=weekScheduleId;
+        this.employee=employee;
+        this.weekDay=weekDay;
+        this.startingTime=startingTime;
+        this.endingTime=endingTime;
+        this.room=room;
     }
 
 

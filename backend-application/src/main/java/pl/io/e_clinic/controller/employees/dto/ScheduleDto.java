@@ -1,19 +1,14 @@
 package pl.io.e_clinic.controller.employees.dto;
-
-import pl.io.e_clinic.entity.employee.model.Employee;
 import pl.io.e_clinic.entity.room.model.Room;
 import pl.io.e_clinic.entity.weekschedule.model.WeekDay;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.sql.Time;
 
 public class ScheduleDto {
     private WeekDay weekDay;
     private Time startingTime;
     private Time endingTime;
-    private Long roomId;
-    private String roomName;
+    private Room room;
 
 
     public WeekDay getWeekDay() {
@@ -42,22 +37,13 @@ public class ScheduleDto {
         this.endingTime = endingTime;
         return this;
     }
-    public Long getRoomId() {
-        return roomId;
+
+    public Room getRoom() {
+        return room;
     }
 
-    public ScheduleDto setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public ScheduleDto setRoom(Room room) {
+        this.room = room;
         return this;
     }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public ScheduleDto setRoomName(String roomName) {
-        this.roomName = roomName;
-        return this;
-    }
-
 }
