@@ -97,17 +97,17 @@ public class EmployeesController {
         if (!optionalEmployee.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        //pobranie wszystkiego dla konkretnego pracownika
 
+        //pobranie wszystkiego dla konkretnego pracownika
         long count = weekScheduleRepository.count();
         Page<WeekSchedule> schedulePage = weekScheduleRepository.findAll(PageRequest.of(0, (int)count));
-
         List<WeekSchedule> scheduleList = schedulePage.getContent();
         //filtrowanie do grafiku danego pracownika
         scheduleList = new FilteringService<>(scheduleList)
                 .contains(employee_id, WeekSchedule::getEmployeeId)
                 .getFiltered();
 
+        //sprawdzenie ktory z dni tygodnia wymaga aktualizacji i jej wykonanie
         int day=0;
         for(WeekSchedule currentSchedule : scheduleList){
             if(currentSchedule.getWeekDay()== WeekDay.values()[day]){
@@ -121,7 +121,7 @@ public class EmployeesController {
             }
             day++;
         }
-
+        //upload do bazy danych NIE DZIALA
         weekScheduleRepository.saveAll(scheduleList);
 
 
