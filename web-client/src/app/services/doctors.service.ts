@@ -12,11 +12,11 @@ export class DoctorsService {
   constructor(private http: HttpClient) {
   }
 
-  /*getDoctorList(): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>('http://localhost:8080/api/employees/doctors');
-  }*/
-
   getDoctorList(name, surname): Observable<Doctor[]> {
     return this.http.get<Doctor[]>('http://localhost:8080/api/employees/doctors/?first_name='+name+'&last_name='+surname);
+  }
+
+  getDoctor(userId): Observable<Doctor[]>{
+    return this.http.get<Doctor[]>('http://localhost:8080/api/employees/doctors/?user_id='+userId);
   }
 }

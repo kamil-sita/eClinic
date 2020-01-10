@@ -15,7 +15,7 @@ export class DoctorListComponent implements OnInit {
   name: string = '';
   surname: string = '';
 
-  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute) {
+  constructor(private doctorsService: DoctorsService) {
   }
 
   ngOnInit() {
