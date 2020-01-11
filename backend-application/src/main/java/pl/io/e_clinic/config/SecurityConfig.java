@@ -47,12 +47,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new NullPasswordEncoder();
     }
 
-
-//
-//    @Bean
-//    public RememberMeServices rememberMeServices() {
-//        return new TokenBasedRememberMeServices(REMEMBER_ME_KEY, userDetailsService());
-//    }
-
-
 }
