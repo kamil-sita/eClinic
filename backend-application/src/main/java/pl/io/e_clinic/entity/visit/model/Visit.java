@@ -100,6 +100,10 @@ public class Visit {
         return employee;
     }
 
+    public Long getEmployeeId() {
+        return employee.getEmployeeId();
+    }
+
     public PaymentStatus getPaymentStatus() {
         return paymentStatus;
     }

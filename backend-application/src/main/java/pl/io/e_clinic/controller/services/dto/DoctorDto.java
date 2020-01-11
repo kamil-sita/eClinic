@@ -1,4 +1,4 @@
-package pl.io.e_clinic.controller.services;
+package pl.io.e_clinic.controller.services.dto;
 
 public class DoctorDto {
     //user.user_id, user.first_name, user.last_name
