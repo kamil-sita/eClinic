@@ -1,2 +1,5 @@
 ﻿target
 .idea
+backend-application/src/main/resources/templates
+backend-application/src/main/resources/templates/hello.html
+*.html
