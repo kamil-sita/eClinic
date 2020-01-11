@@ -78,6 +78,11 @@ public class User {
 
     //poniżej nudne gettery i settery
 
+
+    public String getPassword() {
+        return password;
+    }
+
     public Long getUserId() {
         return userId;
     }
