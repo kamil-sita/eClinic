@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {CommonsModule} from './commons/commons.module';
 import {DoctorsModule} from './doctors/doctors.module';
@@ -28,7 +28,7 @@ import {PatientsModule} from './patients/patients.module';
     FormsModule,
     CommonsModule,
     DoctorsModule,
-    PatientsModule
+    PatientsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
