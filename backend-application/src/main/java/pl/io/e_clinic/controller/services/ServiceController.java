@@ -37,6 +37,12 @@ public class ServiceController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    EntityManager entityManager;
+
+   // @Autowired
+ //   SessionFactory sessionFactory;
+
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -60,30 +66,33 @@ public class ServiceController {
     }
 
 
-   /*@GetMapping(value = "/{service_name}/doctors", produces = MediaType.APPLICATION_JSON_VALUE)
+   @GetMapping(value = "/{service_name}/doctors", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List getUsers(@PathVariable String service_name, @RequestParam(value = "service_name", required = false) String serviceName) {
+    List<DoctorDto> getUsers(@PathVariable String service_name, @RequestParam(value = "service_name", required = false) String serviceName) {
 
         long count = medicalServiceRepository.count();
         Page<Employee> employeePage = employeeRepository.findAll(PageRequest.of(0, (int)count));
 
         List<Employee> employeeList = employeePage.getContent();
-        SessionFactory sessionFactory;
 
-       String sql = "SELECT user.user_id, user.first_name, user.last_name FROM EMPLOYEE\n" +
-               "join PRIVILEGE_LIST on EMPLOYEE.employee_id=PRIVILEGE_LIST.employee_id\n" +
-               "join PRIVILEGE_REQUIREMENT on PRIVILEGE_LIST.privilege_id=PRIVILEGE_REQUIREMENT.privilege_id\n" +
-               "join MEDICAL_SERVICE on PRIVILEGE_REQUIREMENT.service_id=MEDICAL_SERVICE.service_id\n" +
-               "join USER on USER.USER_ID=EMPLOYEE.USER_ID\n" +
-               "where medical_service.service_name=:service_name\n" +
-               "group by employee.user_id";
+       String sql = "SELECT employee.user_id, user.first_name, user.last_name FROM EMPLOYEE"+
+      " join PRIVILEGE_LIST on EMPLOYEE.employee_id=PRIVILEGE_LIST.employee_id"+
+      " join PRIVILEGE_REQUIREMENT on PRIVILEGE_LIST.privilege_id=PRIVILEGE_REQUIREMENT.privilege_id"+
+      " join MEDICAL_SERVICE on PRIVILEGE_REQUIREMENT.service_id=MEDICAL_SERVICE.service_id"+
+      " join USER on USER.USER_ID=EMPLOYEE.USER_ID"+
+      " where medical_service.service_name=:serviceName"+
+      " group by employee.user_id";
 
-       EntityManager em = new JPAUtil().getEntityManager();
-       Session session = em.unwrap(Session.class);
-        Query query = session.getSession().createQuery(sql);
-       System.out.println(elist);
+
+
+
+
+       Session session = entityManager.unwrap(Session.class);
+        Query query = session.getSession().createSQLQuery(sql).setParameter("serviceName",service_name);
+        List<DoctorDto> elist = query.list();
+     //  System.out.println(elist);
 
        return elist;
-    }*/
+    }
 
 }
