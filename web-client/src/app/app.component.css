@@ -22,9 +22,14 @@ mat-drawer-content {
   width: 90px;
 }
 
-mat-drawer-container {
+.router-outlet {
+  width: 100%;
+  height: 100%;
+}
 
-  display:flex;
+
+
+mat-drawer-container {
   width: 100%;
   height: 100%;
 }

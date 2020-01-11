@@ -16,15 +16,17 @@
   <mat-drawer #sidebar mode="side">
     <div class="container">
       <nav class="nav flex-column">
-        <a class="nav-link"  routerLink="/homepage" routerLinkActive="active">Strona główna</a>
-        <a class="nav-link"  routerLink="/loginpage" routerLinkActive="active">Logowanie</a>
-        <a class="nav-link"  routerLink="/doctorlist" routerLinkActive="active">Doktorzy</a>
-        <a class="nav-link"  routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
+        <a class="nav-link" routerLink="/homepage" routerLinkActive="active">Strona główna</a>
+        <a class="nav-link" routerLink="/loginpage" routerLinkActive="active">Logowanie</a>
+        <a class="nav-link" routerLink="/doctorlist" routerLinkActive="active">Doktorzy</a>
+        <a class="nav-link" routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
       </nav>
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <router-outlet></router-outlet>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>
 
