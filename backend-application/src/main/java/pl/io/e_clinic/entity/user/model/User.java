@@ -6,12 +6,13 @@ import pl.io.e_clinic.entity.visit.model.Visit;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
 @JsonIgnoreProperties(value = {"visits"})
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
@@ -77,6 +78,11 @@ public class User {
 
 
     //poniżej nudne gettery i settery
+
+
+    public String getPassword() {
+        return password;
+    }
 
     public Long getUserId() {
         return userId;

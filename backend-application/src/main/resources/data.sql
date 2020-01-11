@@ -192,25 +192,3 @@ insert into privilege_requirement (service_id, privilege_id) values (2, 11);
 insert into privilege_requirement (service_id, privilege_id) values (3, 0);
 insert into privilege_requirement (service_id, privilege_id) values (4, 3);
 insert into privilege_requirement (service_id, privilege_id) values (5, 3);
-insert into privilege_requirement (service_id, privilege_id) values (5, 3);
-
-insert into room (room_id, room_name) values (19,'podstawowy');
-insert into room (room_id, room_name) values (20,'medyczny');
-insert into room (room_id, room_name) values (21,'podstawowy');
-
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (1,1,0,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (2,1,1,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (3,1,2,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (4,1,3,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (5,1,4,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (6,1,5,'10:00','15:00',19);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (7,1,6,'10:00','15:00',19);
-
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (8,2,0,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (9,2,1,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (10,2,2,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (11,2,3,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (12,2,4,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (13,2,5,'11:00','16:00',20);
-insert into week_schedule (week_schedule_id, employee_id, week_day_id, starting_time, ending_time, room_id) values (14,2,6,'11:00','16:00',20);
-
