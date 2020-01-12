@@ -13,6 +13,7 @@ import {CommonsModule} from './commons/commons.module';
 import {DoctorsModule} from './doctors/doctors.module';
 import {PatientsModule} from './patients/patients.module';
 import {AuthHeaderInterceptor} from "./interceptors/auth-header-interceptor.service";
+import {HttpUnauthorizedInterceptor} from "./interceptors/http-unauthorized-interceptor";
 
 @NgModule({
   declarations: [
@@ -31,11 +32,18 @@ import {AuthHeaderInterceptor} from "./interceptors/auth-header-interceptor.serv
     DoctorsModule,
     PatientsModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthHeaderInterceptor,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHeaderInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpUnauthorizedInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

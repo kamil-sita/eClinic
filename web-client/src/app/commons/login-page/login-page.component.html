@@ -13,6 +13,9 @@
                  placeholder="Hasło" required="">
           <button (click)="signIn()" class="btn btn-primary btn-block mt-3">Zaloguj</button>
         </form>
+        <div *ngIf="hasLoginFailed()" class="text-danger mt-3">
+          <p>Logowanie nie powiodło się. Niepoprawna nazwa użytkownika lub hasło.</p>
+        </div>
       </div>
     </div>
   </div>

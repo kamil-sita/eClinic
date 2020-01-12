@@ -36,6 +36,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     )
   }
 
+  hasLoginFailed(){
+    return this.userService.recentLoginFailed;
+  }
+
   ngOnDestroy() {
     if (this.userSub != null)
       this.userSub.unsubscribe()

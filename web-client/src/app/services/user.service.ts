@@ -14,7 +14,7 @@ export class UserService {
   private _user: UserDetails;
   private subject = new Subject<any>();
   private _credentials: string;
-
+  private _recentLoginFailed: boolean = false;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -29,6 +29,18 @@ export class UserService {
       })
       .pipe(tap(user => this.sendUserName(user.firstName + ' ' + user.lastName)))
       .pipe(tap(user => this._user = user))
+      .pipe(tap(user => this._recentLoginFailed = false));
+  }
+
+  signOut(){
+
+    if(!this.hasUser())
+      return;
+
+    this.httpClient.get('http://localhost:8080/api/logout');
+    this._user = null;
+    this._credentials = null;
+    this.sendUserName(null);
 
   }
 
@@ -76,5 +88,14 @@ export class UserService {
 
   get credentials(): string {
     return this._credentials;
+  }
+
+  failRecentLogin(){
+    this._recentLoginFailed = true;
+  }
+
+
+  get recentLoginFailed(): boolean {
+    return this._recentLoginFailed;
   }
 }

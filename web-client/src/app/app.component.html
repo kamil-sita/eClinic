@@ -29,6 +29,8 @@
            class="nav-link" routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
         <a *ngIf="this.userService.hasUser()"
            class="nav-link" routerLink="/account" routerLinkActive="active">Konto</a>
+        <a *ngIf="this.userService.hasUser()"
+           (click)="this.userService.signOut()" routerLink="/homepage" class="nav-link" routerLinkActive="active">Wyloguj</a>
       </nav>
     </div>
   </mat-drawer>
