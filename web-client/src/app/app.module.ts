@@ -7,15 +7,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {CommonsModule} from './commons/commons.module';
 import {DoctorsModule} from './doctors/doctors.module';
 import {PatientsModule} from './patients/patients.module';
+import {AuthHeaderInterceptor} from "./interceptors/auth-header-interceptor.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -30,7 +31,11 @@ import {PatientsModule} from './patients/patients.module';
     DoctorsModule,
     PatientsModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthHeaderInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

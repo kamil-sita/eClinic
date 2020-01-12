@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  private username: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    if(this.userService.hasUser())
+      this.username = this.userService.user.firstName + ' ' +this.userService.user.lastName;
+  }
+
+  usernamePresent(): boolean{
+    return this.username != null;
   }
 
 }

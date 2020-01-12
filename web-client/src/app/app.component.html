@@ -9,7 +9,13 @@
   </ul>
 
   <span class="text-black-50"><i class="fa fa-2x fa-user mr-2"></i></span>
-  <button class="btn btn-sm btn-warning">Logowanie</button>
+
+  <div *ngIf="!usernamePresent(); else userNamePresent">
+    <button class="btn btn-sm btn-warning">Logowanie</button>
+  </div>
+  <ng-template #userNamePresent>
+    <div class="text-white">{{username}}</div>
+  </ng-template>
 </nav>
 
 <mat-drawer-container>

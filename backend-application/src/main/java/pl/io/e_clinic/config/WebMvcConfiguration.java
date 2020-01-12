@@ -1,4 +1,4 @@
-package pl.io.e_clinic;
+package pl.io.e_clinic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class MyConfiguration {
+public class WebMvcConfiguration {
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {

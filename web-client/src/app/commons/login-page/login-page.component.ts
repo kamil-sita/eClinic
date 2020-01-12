@@ -4,6 +4,7 @@ import {UserService} from "../../services/user.service";
 import {UserDetails} from "../../data/users/user-details";
 import {UserCredentials} from "../../data/users/user-credentials";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +20,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   userSub: Subscription;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -30,10 +31,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     this.userService.sigIn(credentials).subscribe(
       userDetails => {
-        console.log(userDetails)
-      },
-      error => {
-        window.alert(error)
+        this.router.navigate(['homepage']);
       }
     )
   }
