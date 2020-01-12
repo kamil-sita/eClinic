@@ -14,7 +14,7 @@ import pl.io.e_clinic.services.UserDetailsServiceImpl;
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
