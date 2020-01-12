@@ -33,15 +33,23 @@ export class UserService {
   }
 
   isDoctor(): boolean {
+    if (!this.hasUser())
+      return false;
+
     return UserRole.DOCTOR === this._user.role;
   }
 
 
   isPatient(): boolean {
+    if (!this.hasUser())
+      return false;
+
     return UserRole.PATIENT === this._user.role;
   }
 
   isReceptionist(): boolean {
+    if (!this.hasUser())
+      return false;
     return UserRole.RECEPTIONIST === this._user.role;
   }
 
