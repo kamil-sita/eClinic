@@ -1,8 +1,7 @@
-package pl.io.e_clinic.controller.login;
+package pl.io.e_clinic.entity.user.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.io.e_clinic.entity.user.model.User;
 
 import java.util.Collection;
 

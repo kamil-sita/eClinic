@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.io.e_clinic.controller.login.UserPrincipal;
+import pl.io.e_clinic.entity.user.model.UserPrincipal;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.user.repository.UserRepository;
 
