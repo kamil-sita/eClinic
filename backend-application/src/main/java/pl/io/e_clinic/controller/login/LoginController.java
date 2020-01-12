@@ -16,7 +16,7 @@ import pl.io.e_clinic.entity.employee.model.Employee;
 import pl.io.e_clinic.entity.employee.repository.EmployeeRepository;
 import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.user.model.UserPrincipal;
-import pl.io.e_clinic.entity.user.repository.impl.UserRepositoryImpl;
+import pl.io.e_clinic.entity.user.repository.UserRepository;
 
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -28,7 +28,7 @@ public class LoginController {
     private static final Logger log = LogManager.getLogger(LoginController.class);
 
     @Autowired
-    UserRepositoryImpl userRepository;
+    UserRepository userRepository;
 
     @Autowired
     EmployeeRepository employeeRepository;
