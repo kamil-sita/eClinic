@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Doctor} from '../../data/doctors/doctor';
 import {DoctorsService} from '../../services/doctors.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -15,11 +15,15 @@ export class DoctorListComponent implements OnInit {
   name: string = '';
   surname: string = '';
 
-  constructor(private doctorsService: DoctorsService) {
+  constructor(private doctorsService: DoctorsService, private router: Router) {
   }
 
   ngOnInit() {
     this.doctorsService.getDoctorList(this.name, this.surname).subscribe(doctor => this.doctorList = doctor);
+  }
+
+  navigateToDetails(doctorid){
+    this.router.navigate(['doctorlist/' + doctorid])
   }
 
 }
