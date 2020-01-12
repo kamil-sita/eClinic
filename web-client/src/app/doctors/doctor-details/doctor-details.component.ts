@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Doctor} from '../../data/doctors/doctor';
 import {DoctorsService} from '../../services/doctors.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class DoctorDetailsComponent implements OnInit {
   doctor:Doctor;
   userId;
 
-  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -25,4 +25,7 @@ export class DoctorDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  toSchedule(userId) {
+    this.router.navigate(['/doctorlist/'+userId+'/schedule'])
+  }
 }

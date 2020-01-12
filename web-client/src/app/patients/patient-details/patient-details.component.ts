@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Patient} from '../../data/patients/patient';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {PatientsService} from '../../services/patients.service';
 
@@ -14,7 +14,7 @@ export class PatientDetailsComponent implements OnInit {
   patient:Patient;
   userId;
 
-  constructor(private patientsService: PatientsService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private patientsService: PatientsService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -25,4 +25,7 @@ export class PatientDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  toIllnessHistory(userId: number) {
+    this.router.navigate(['/patientlist/'+userId+'/history'])
+  }
 }

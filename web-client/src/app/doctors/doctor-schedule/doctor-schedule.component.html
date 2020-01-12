@@ -20,7 +20,7 @@
       </tbody>
     </table>
     <button (click)="backClicked()" style="margin-right: 5px" class="btn btn-danger"><-- Wróć</button>
-    <a href="/doctorlist/{{doctor.user.userId}}/schedule/edit"><button class="btn btn-danger">Edytuj grafik</button></a>
+    <button (click)="toScheduleEdit(doctor.user.userId)" class="btn btn-danger">Edytuj grafik</button>
   </div>
 </div>
 

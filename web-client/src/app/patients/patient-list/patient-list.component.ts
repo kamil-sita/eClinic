@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PatientsService} from '../../services/patients.service';
 import {Patient} from '../../data/patients/patient';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -13,10 +14,13 @@ export class PatientListComponent implements OnInit {
   name: string = '';
   surname: string = '';
 
-  constructor(private patientsService: PatientsService) { }
+  constructor(private patientsService: PatientsService, private router: Router) { }
 
   ngOnInit() {
     this.patientsService.getPatientsList(this.name, this.surname).subscribe(pat => this.patientList = pat);
   }
 
+  toPatientDetails(userId: number) {
+    this.router.navigate(['patientlist/'+userId]);
+  }
 }
