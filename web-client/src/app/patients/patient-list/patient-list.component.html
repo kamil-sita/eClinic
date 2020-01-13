@@ -18,7 +18,7 @@
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let patient of patientList">
         {{patient.firstName + " " + patient.lastName}}
-        <a href="/patientlist/{{patient.userId}}"><button (click)="toPatientDetails(patient.userId)" class="btn btn-danger">Więcej</button></a>
+        <button (click)="toPatientDetails(patient.userId)" class="btn btn-danger">Więcej</button>
       </li>
     </ul>
   </div>
