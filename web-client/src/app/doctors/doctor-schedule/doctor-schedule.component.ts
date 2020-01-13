@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DoctorsService} from '../../services/doctors.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DaySchedule} from '../../data/schedule/day-schedule';
 import {Doctor} from '../../data/doctors/doctor';
 import {Location} from '@angular/common';
@@ -16,7 +16,7 @@ export class DoctorScheduleComponent implements OnInit {
   weekSchedule:DaySchedule[];
   doctor:Doctor;
 
-  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -28,4 +28,7 @@ export class DoctorScheduleComponent implements OnInit {
     this.location.back();
   }
 
+  toScheduleEdit(userId: number) {
+    this.router.navigate(['/doctorlist/'+userId+'schedule/edit'])
+  }
 }
