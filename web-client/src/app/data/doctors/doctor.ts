@@ -1,6 +1,6 @@
-import {Patient} from '../patients/patient';
+import {Patient} from "../patients/patient";
 
-export class Doctor {
+export class Employee {
   employeeId: number;
   user: Patient;
   role: string;

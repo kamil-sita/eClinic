@@ -14,6 +14,7 @@ import {DoctorsModule} from './doctors/doctors.module';
 import {PatientsModule} from './patients/patients.module';
 import {AuthHeaderInterceptor} from "./interceptors/auth-header-interceptor.service";
 import {HttpUnauthorizedInterceptor} from "./interceptors/http-unauthorized-interceptor";
+import {VisitsModule} from "./visits/visits.module";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {HttpUnauthorizedInterceptor} from "./interceptors/http-unauthorized-inte
     CommonsModule,
     DoctorsModule,
     PatientsModule,
+    VisitsModule,
   ],
   providers: [
     {

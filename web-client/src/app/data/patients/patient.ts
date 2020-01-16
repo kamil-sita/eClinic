@@ -8,4 +8,5 @@ export class Patient {
   contactNumber: string;
   otherInfo: string;
   username: string;
+
 }

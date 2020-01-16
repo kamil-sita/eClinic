@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {DaySchedule} from '../../data/schedule/day-schedule';
-import {Doctor} from '../../data/doctors/doctor';
 import {Document} from '../../data/documents/document';
 import {Patient} from '../../data/patients/patient';
-import {DoctorsService} from '../../services/doctors.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {PatientsService} from '../../services/patients.service';

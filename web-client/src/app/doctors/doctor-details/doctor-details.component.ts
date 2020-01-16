@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Doctor} from '../../data/doctors/doctor';
+import {Employee} from '../../data/doctors/doctor';
 import {DoctorsService} from '../../services/doctors.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
@@ -11,7 +11,7 @@ import {Location} from '@angular/common';
 })
 export class DoctorDetailsComponent implements OnInit {
 
-  doctor:Doctor;
+  doctor: Employee;
   userId;
 
   constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location, private router: Router) { }

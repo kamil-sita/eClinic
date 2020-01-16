@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DoctorsService} from '../../services/doctors.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DaySchedule} from '../../data/schedule/day-schedule';
-import {Doctor} from '../../data/doctors/doctor';
+import {Employee} from '../../data/doctors/doctor';
 import {Location} from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class DoctorScheduleComponent implements OnInit {
 
   userId;
   weekSchedule:DaySchedule[];
-  doctor:Doctor;
+  doctor: Employee;
 
   constructor(private doctorsService: DoctorsService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 

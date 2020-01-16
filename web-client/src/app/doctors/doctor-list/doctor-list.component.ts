@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Doctor} from '../../data/doctors/doctor';
+import {Employee} from '../../data/doctors/doctor';
 import {DoctorsService} from '../../services/doctors.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-doctor-list',
@@ -11,9 +10,11 @@ import {FormsModule} from '@angular/forms';
 })
 export class DoctorListComponent implements OnInit {
 
-  doctorList : Doctor[];
+  doctorList : Employee[];
   name: string = '';
   surname: string = '';
+
+
 
   constructor(private doctorsService: DoctorsService, private router: Router) {
   }
@@ -25,4 +26,6 @@ export class DoctorListComponent implements OnInit {
   toDoctorDetails(doctorId) {
     this.router.navigate(['/doctorlist/'+doctorId]);
   }
+
+
 }
