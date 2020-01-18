@@ -26,4 +26,8 @@ export class VisitListComponent implements OnInit {
     this.router.navigate(['/patientlist/'+userId]);
   }
 
+  toVisitAdd(){
+    this.router.navigate(['/visitadd/']);
+  }
+
 }
