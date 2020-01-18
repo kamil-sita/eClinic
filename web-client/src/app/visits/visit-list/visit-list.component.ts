@@ -22,8 +22,8 @@ export class VisitListComponent implements OnInit {
   }
 
   toVisitDetails(userId) {
-    //Tego nie do konca rozumiem xD
-    this.router.navigate(['/visitlist/'+userId]);
+    //Dostęp do szczegółów pacjenta (nie wizyty, ale zrozumiałem, że tego właśnie oczkujecie)
+    this.router.navigate(['/patientlist/'+userId]);
   }
 
 }
