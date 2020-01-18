@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VisitListComponent } from './visit-list/visit-list.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { VisitAddComponent } from './visit-add/visit-add.component';
 
 
@@ -10,7 +10,8 @@ import { VisitAddComponent } from './visit-add/visit-add.component';
   declarations: [VisitListComponent, VisitAddComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [VisitListComponent, VisitAddComponent]
 })

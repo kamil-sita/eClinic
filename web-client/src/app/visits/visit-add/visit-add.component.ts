@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-visit-add',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visit-add.component.css']
 })
 export class VisitAddComponent implements OnInit {
+
+  private addVisitForm = new FormGroup({
+
+    });
 
   constructor() { }
 

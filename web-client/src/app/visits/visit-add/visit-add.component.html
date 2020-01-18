@@ -1,4 +1,38 @@
-<h2>Test</h2>
-<h3>Paduch</h3>
+<div class="row justify-content-center">
+  <div class="col-md-8 d-flex align-items-center">
+    <div class="jumbotron mt-5 text-center align-content-center">
+      <h3 class="display-4">Dodawanie nowej wizyty</h3>
+      <form [formGroup]="addVisitForm" class="center-form mt-3">
+        <label for="firstNamePatient" class="sr-only">firstNamePatient</label>
+        <input formControlName="firstNamePatient" type="firstNamePatient" id="firstNamePatient" class="form-control"
+               placeholder="Imię pacjenta" required="" autofocus="">
+        <label for="lastNamePatient" class="sr-only">lastNamePatient</label>
+        <input formControlName="lastNamePatient" type="lastNamePatient" id="lastNamePatient" class="form-control mt-1"
+               placeholder="Nazwisko pacjenta" required="">
 
+        <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>
+        <input formControlName="firstNameDoctor" type="firstNameDoctor" id="firstNameDoctor" class="form-control mt-2"
+               placeholder="Imię lekarza" required="" autofocus="">
+        <label for="lastNameDoctor" class="sr-only">lastNameDoctor</label>
+        <input formControlName="lastNameDoctor" type="lastNameDoctor" id="lastNameDoctor" class="form-control mt-1"
+               placeholder="Nazwisko lekarza" required="">
+
+        <label for="date" class="sr-only">date</label>
+        <input formControlName="date" type="date" id="date" class="form-control mt-2"
+               placeholder="Termin wizyty" required="" autofocus="">
+        <label for="time" class="sr-only">time</label>
+        <input formControlName="time" type="time" id="time" class="form-control mt-1"
+               placeholder="Godzina" required="">
+<!--        <button (click)="addVisitToDB()" class="btn btn-primary btn-block mt-3">Dodaj wizytę</button>-->
+<!--        <button (click)="returnToVisitList()" class="btn btn-primary btn-block mt-3">Anuluj</button>-->
+      </form>
+<!--      <div *ngIf="addPositive()" class="text-danger mt-3">-->
+<!--        <p>Wizyta została dodana.</p>-->
+<!--      </div>-->
+<!--      <div *ngIf="addNegative()" class="text-danger mt-3">-->
+<!--        <p>Dodawanie wizyty nie powiodło się.</p>-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>
 
