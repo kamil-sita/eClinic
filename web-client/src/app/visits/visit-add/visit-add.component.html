@@ -23,15 +23,17 @@
         <label for="time" class="sr-only">time</label>
         <input formControlName="time" type="time" id="time" class="form-control mt-1"
                placeholder="Godzina" required="">
-<!--        <button (click)="addVisitToDB()" class="btn btn-primary btn-block mt-3">Dodaj wizytę</button>-->
-<!--        <button (click)="returnToVisitList()" class="btn btn-primary btn-block mt-3">Anuluj</button>-->
+        <div style="position: relative; top: 10px">
+          <button (click)="addVisitToDB()" class="btn btn-primary btn-block mt-3">Dodaj wizytę</button>
+          <button (click)="returnToVisitList()" class="btn btn-danger btn-block mt-1">Anuluj</button>
+        </div>
       </form>
-<!--      <div *ngIf="addPositive()" class="text-danger mt-3">-->
-<!--        <p>Wizyta została dodana.</p>-->
-<!--      </div>-->
-<!--      <div *ngIf="addNegative()" class="text-danger mt-3">-->
-<!--        <p>Dodawanie wizyty nie powiodło się.</p>-->
-<!--      </div>-->
+      <!--      <div *ngIf="addPositive()" class="text-danger mt-3">-->
+      <!--        <p>Wizyta została dodana.</p>-->
+      <!--      </div>-->
+      <!--      <div *ngIf="addNegative()" class="text-danger mt-3">-->
+      <!--        <p>Dodawanie wizyty nie powiodło się.</p>-->
+      <!--      </div>-->
     </div>
   </div>
 </div>

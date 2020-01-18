@@ -27,7 +27,8 @@
           class="nav-link" routerLink="/doctorlist" routerLinkActive="active">Doktorzy</a>
         <a *ngIf="this.userService.isEmployee()"
            class="nav-link" routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
-        <a routerLink="/visitlist" class="nav-link" routerLinkActive="active">Wizyty</a>
+        <a *ngIf="this.userService.isEmployee()"
+           class="nav-link" routerLink="/visitlist" routerLinkActive="active">Wizyty</a>
         <a *ngIf="this.userService.hasUser()"
            class="nav-link" routerLink="/account" routerLinkActive="active">Konto</a>
         <a *ngIf="this.userService.hasUser()"
