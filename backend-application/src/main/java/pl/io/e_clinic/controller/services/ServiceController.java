@@ -97,7 +97,27 @@ public class ServiceController {
 
        Session session = entityManager.unwrap(Session.class);
         Query query = session.getSession().createSQLQuery(sql).setParameter("serviceName",service_name);
-        return query.list();
+        List<Object> res = query.getResultList();
+        List<DoctorDto> dList =new ArrayList<DoctorDto>();
+        Date date=new Date(System.currentTimeMillis());
+        date.setDate(date.getDate()+1);
+       Iterator it = res.iterator();
+       while(it.hasNext()){
+           Object[] line = (Object[]) it.next();
+           DoctorDto doc = new DoctorDto();
+           doc.setUserId(Long.valueOf(String.valueOf(line[0])));
+           doc.setFirstName(line[1].toString());
+           doc.setLastName(line[2].toString());
+           try{
+               Date dateToSet=getAvailability(doc.getUserId(),date).getDate();
+               doc.setDate(dateToSet);
+           }catch(NullPointerException nE){
+
+           }
+           dList.add(doc);
+       }
+
+        return dList;
      //  System.out.println(elist);
 
     }
@@ -110,6 +130,7 @@ public class ServiceController {
        boolean foundVisit=false;
         long count = visitRepository.count();
         Date tempDate;
+        Time tempTime;
         if (date == null) {
             tempDate= new Date(System.currentTimeMillis());
         }else{
@@ -137,9 +158,14 @@ public class ServiceController {
                     .contains(tempDate, Visit::getScheduledDate)
                     .getFiltered();
             //pobranie grafiku pracownika na dany dzien
-                Time tempTime = (Time) session.getSession().createSQLQuery(sql)
+            try{
+                tempTime = (Time) session.getSession().createSQLQuery(sql)
                         .setParameter("currentDay", currentDay)
                         .setParameter("currentEmployee", doctor_id).getSingleResult();
+            }catch(Exception E){
+                return null;
+            }
+
                 // List<WeekSchedule> currentSchedule = query.list();
 
             if (filteredVisits.isEmpty()) {//jesli pusta to pierwsza dostepna godzina dnia nast
