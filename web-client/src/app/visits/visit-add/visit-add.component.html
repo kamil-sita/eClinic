@@ -2,19 +2,26 @@
   <div class="col-md-8 d-flex align-items-center">
     <div class="jumbotron mt-5 text-center align-content-center">
       <h3 class="display-4">Dodawanie nowej wizyty</h3>
-      <form [formGroup]="addVisitForm" class="center-form mt-3">
+      <form [formGroup]="addVisitForm" (ngSubmit)="addVisitToDB()" class="center-form mt-3">
+        <label for="patientId" class="sr-only">patientId</label>
+        <input formControlName="patientId" type="number" id="patientId" class="form-control"
+               placeholder="ID pacjenta" required="" autofocus="">
+        <label for="doctorId" class="sr-only">doctorId</label>
+        <input formControlName="doctorId" type="number" id="doctorId" class="form-control mt-1"
+               placeholder="ID lekarza" required="">
+
         <label for="firstNamePatient" class="sr-only">firstNamePatient</label>
-        <input formControlName="firstNamePatient" type="firstNamePatient" id="firstNamePatient" class="form-control"
+        <input formControlName="firstNamePatient" type="text" id="firstNamePatient" class="form-control mt-2"
                placeholder="Imię pacjenta" required="" autofocus="">
         <label for="lastNamePatient" class="sr-only">lastNamePatient</label>
-        <input formControlName="lastNamePatient" type="lastNamePatient" id="lastNamePatient" class="form-control mt-1"
+        <input formControlName="lastNamePatient" type="text" id="lastNamePatient" class="form-control mt-1"
                placeholder="Nazwisko pacjenta" required="">
 
         <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>
-        <input formControlName="firstNameDoctor" type="firstNameDoctor" id="firstNameDoctor" class="form-control mt-2"
+        <input formControlName="firstNameDoctor" type="text" id="firstNameDoctor" class="form-control mt-2"
                placeholder="Imię lekarza" required="" autofocus="">
         <label for="lastNameDoctor" class="sr-only">lastNameDoctor</label>
-        <input formControlName="lastNameDoctor" type="lastNameDoctor" id="lastNameDoctor" class="form-control mt-1"
+        <input formControlName="lastNameDoctor" type="text" id="lastNameDoctor" class="form-control mt-1"
                placeholder="Nazwisko lekarza" required="">
 
         <label for="date" class="sr-only">date</label>
