@@ -4,27 +4,20 @@ package pl.io.e_clinic.controller.employees;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import pl.io.e_clinic.controller.employees.dto.ScheduleDto;
-import pl.io.e_clinic.entity.document.model.Document;
 import pl.io.e_clinic.entity.employee.repository.EmployeeRepository;
-import pl.io.e_clinic.entity.medicalservice.model.MedicalService;
 import pl.io.e_clinic.entity.room.repository.RoomRepository;
-
 import pl.io.e_clinic.entity.employee.model.Employee;
-import pl.io.e_clinic.entity.user.model.User;
 import pl.io.e_clinic.entity.visit.model.Visit;
 import pl.io.e_clinic.entity.weekschedule.model.WeekDay;
 import pl.io.e_clinic.entity.weekschedule.model.WeekSchedule;
 import pl.io.e_clinic.entity.weekschedule.repository.WeekScheduleRepository;
 import pl.io.e_clinic.services.FilteringService;
-
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -121,7 +114,6 @@ public class EmployeesController {
             }
             day++;
         }
-        //upload do bazy danych NIE DZIALA
         weekScheduleRepository.saveAll(scheduleList);
 
 

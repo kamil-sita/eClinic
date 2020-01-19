@@ -51,6 +51,7 @@ public class ServiceController {
 
     @Autowired
     VisitRepository visitRepository;
+
     @Autowired
     WeekScheduleRepository weekScheduleRepository;
 
@@ -94,77 +95,86 @@ public class ServiceController {
       " where medical_service.service_name=:serviceName"+
       " group by employee.user_id";
 
-
-
-
-
        Session session = entityManager.unwrap(Session.class);
         Query query = session.getSession().createSQLQuery(sql).setParameter("serviceName",service_name);
-        List<DoctorDto> elist = query.list();
+        return query.list();
      //  System.out.println(elist);
 
-       return elist;
     }
 
-    @GetMapping(value = "/{doctor_id}/availability", produces = MediaType.APPLICATION_JSON_VALUE)
+   @GetMapping(value = "/{doctor_id}/availability", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<DateTimeDto> getAvailability(@PathVariable Long doctor_id, @RequestParam(value="date", required=false) Date date) {
-
+    DateTimeDto getAvailability(@PathVariable Long doctor_id, @RequestParam(value="date", required=false) Date date) {
+       DateTimeDto visitDate =new DateTimeDto();
+       boolean foundDate=false;
+       boolean foundVisit=false;
         long count = visitRepository.count();
+        Date tempDate;
+        if (date == null) {
+            tempDate= new Date(System.currentTimeMillis());
+        }else{
+            tempDate=date;
+        }
+       tempDate.setDate((tempDate.getDate()));
+       int currentDay = tempDate.getDay();
 
         if (count == 0)
-            return new ArrayList<>();
-        //pobranie wizyt pracownika
-        Page<Visit> allVisits = visitRepository.findAll(PageRequest.of(0, (int) count));
-        List<Visit> filteredVisits = allVisits.getContent();
-        filteredVisits = new FilteringService<>(filteredVisits)
-                .contains(doctor_id, Visit::getEmployeeId)
-                .getFiltered();
-        //pobranie grafiku pracownika
-        long countS = weekScheduleRepository.count();
-        Page<WeekSchedule> schedules = weekScheduleRepository.findAll(PageRequest.of(0, (int)count));
-        List<WeekSchedule> schedule = schedules.getContent();
-        schedule = new FilteringService<>(schedule)
-                .contains(doctor_id, WeekSchedule::getEmployeeId)
-                .getFiltered();
+            return null;
 
-        if (date == null) {
-            date= new Date(System.currentTimeMillis());
-        }
-        Date tempDate = date;
-        //sprawdzenie czy pracownik pracuje tego dnia i stworzenie listy godzin
-        int day=0;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        day=calendar.get(Calendar.DAY_OF_WEEK);
-        ArrayList<Time> availableHours;
-        Time tempTime;
-        for(WeekSchedule currentSchedule : schedule){
-            if(currentSchedule.getWeekDay() == WeekDay.values()[day-1]){ //czy to jest grafik na ten dzien
-                tempTime=currentSchedule.getStartingTime();
+        String sql = "select starting_time from week_schedule w\n" +
+                "where w.week_day_id=:currentDay\n" +
+                "and w.employee_id=:currentEmployee";
 
-                List<Visit> atDateVisits = filteredVisits;
-                atDateVisits = new FilteringService<>(atDateVisits)
-                        .contains(date, Visit::getScheduledDate)
-                        .getFiltered();
-                for(Visit currentVisit : atDateVisits){
-                    if(tempTime.after(currentVisit.getStartingTime())&&tempTime.before(currentSchedule.getEndingTime())){
-                        continue;
-                    }else{
-                        tempTime.setMinutes(tempTime.getMinutes()+currentVisit.getEstimatedDuration().intValue());
+        Session session = entityManager.unwrap(Session.class);
+        while(!foundVisit) {//dopoki nie znajdzie wolnego terminu
+
+
+            //pobranie wizyt pracownika na dany dzien
+            Page<Visit> allVisits = visitRepository.findAll(PageRequest.of(0, (int) count));
+            List<Visit> filteredVisits = allVisits.getContent();
+            filteredVisits = new FilteringService<>(filteredVisits)
+                    .contains(doctor_id, Visit::getEmployeeId)
+                    .contains(tempDate, Visit::getScheduledDate)
+                    .getFiltered();
+            //pobranie grafiku pracownika na dany dzien
+                Time tempTime = (Time) session.getSession().createSQLQuery(sql)
+                        .setParameter("currentDay", currentDay)
+                        .setParameter("currentEmployee", doctor_id).getSingleResult();
+                // List<WeekSchedule> currentSchedule = query.list();
+
+            if (filteredVisits.isEmpty()) {//jesli pusta to pierwsza dostepna godzina dnia nast
+
+                visitDate.setDate(tempDate);
+                visitDate.setTime(tempTime);
+                foundVisit=true;
+            } else//sprawdzamy ktora wizyta ostatnia, o ktorej godzinie sie skonczy i czy godzina konca jest przed koncem pracy lekarza
+            {
+
+                    for (Visit v : filteredVisits) {
+                        if (tempTime == v.getStartingTime() || tempTime.before(v.getStartingTime())) {
+
+                            tempTime.setTime(v.getStartingTime().getTime());
+                            tempTime.setMinutes(tempTime.getMinutes()+v.getEstimatedDuration().intValue());
+                        }
+                    }//mamy godzine w dannym dniu
+                    sql = "select ending_time from week_schedule w\n" +
+                            "where w.week_day_id=:currentDay\n" +
+                            "and w.employee_id=:currentEmployee";
+                    Time endTime = (Time) session.getSession().createSQLQuery(sql)
+                            .setParameter("currentDay", currentDay)
+                            .setParameter("currentEmployee", doctor_id).getSingleResult();
+                    if (tempTime.before(endTime)) {
+                        visitDate.setDate(tempDate);
+                        visitDate.setTime(tempTime);
+                        foundVisit = true;
                     }
-                }
 
-                break;
-                }
 
+            }
+            tempDate.setDate((tempDate.getDate()));
+            currentDay = tempDate.getDay();
         }
 
-
-
-
-        //  System.out.println(elist);
-
-        return new ArrayList<DateTimeDto>();
+        return visitDate;
     }
 }
