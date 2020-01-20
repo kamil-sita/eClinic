@@ -4,12 +4,15 @@
       <h3 class="display-4">Dodawanie nowej wizyty</h3>
       <form [formGroup]="addVisitForm" (ngSubmit)="addVisitToDB()" class="center-form mt-3">
 
-        <label for="firstNamePatient" class="sr-only">firstNamePatient</label>
-        <input formControlName="firstNamePatient" type="text" id="firstNamePatient" class="form-control"
-               placeholder="Imię pacjenta" required="" autofocus="">
-        <label for="lastNamePatient" class="sr-only">lastNamePatient</label>
-        <input formControlName="lastNamePatient" type="text" id="lastNamePatient" class="form-control mt-1"
-               placeholder="Nazwisko pacjenta" required="">
+        <label for="serviceId" class="sr-only">serviceId</label>
+        <input formControlName="serviceId" type="number" id="serviceId" class="form-control"
+               placeholder="Rodzaj usługi" required="" autofocus="">
+        <label for="Date" class="sr-only">Date</label>
+        <input formControlName="Date" type="Date" id="Date" class="form-control mt-1"
+               placeholder="Data wizyty" required="">
+        <label for="Time" class="sr-only">Time</label>
+        <input formControlName="Time" type="Time" id="Time" class="form-control mt-1"
+               placeholder="Godzina" required="">
 
 <!--        <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>-->
 <!--        <input formControlName="firstNameDoctor" type="text" id="firstNameDoctor" class="form-control mt-2"-->

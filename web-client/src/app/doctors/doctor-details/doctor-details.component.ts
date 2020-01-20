@@ -3,6 +3,8 @@ import {Employee} from '../../data/doctors/doctor';
 import {DoctorsService} from '../../services/doctors.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {VisitAddComponent} from "../../visits/visit-add/visit-add.component";
+import {VisitToAdd} from "../../data/visits/visit-to-add";
 
 @Component({
   selector: 'app-doctor-details',
@@ -29,7 +31,8 @@ export class DoctorDetailsComponent implements OnInit {
     this.router.navigate(['/doctorlist/'+userId+'/schedule'])
   }
 
-  toVisitAdd(userId) {
-    this.router.navigate(['/doctorlist/'+userId+'/schedule'])
+  toVisitAdd(userId: number) {
+    VisitToAdd.employeeId = userId;
+    this.router.navigate(['/visitadd/'])
   }
 }

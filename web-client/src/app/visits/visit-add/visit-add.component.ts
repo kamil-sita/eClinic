@@ -29,21 +29,25 @@ export class VisitAddComponent implements OnInit {
   constructor(private visitsService: VisitsService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
-    this.addVisitForm = this.formBuilder.group({
-      patientId: [''],
-      serviceId: [''],
-      employeeId: [''],
-      scheduledDate: [''],
-      startingTime: [''],
-
-    });
+    // this.addVisitForm = this.formBuilder.group({
+    //   patientId: [''],
+    //   serviceId: [''],
+    //   employeeId: [''],
+    //   scheduledDate: [''],
+    //   startingTime: [''],
+    //
+    // });
   }
-  get f() { return this.addVisitForm.controls; }
+//  get f() { return this.addVisitForm.controls; }
 
   assignPatient(patient: Patient){
     this.patient = patient;
     //this.visit.patient = this.patient;
   }
+
+
+
+
 
   addVisitToDB() {
     this.visitsService.postVisit(new VisitToAdd(
@@ -56,7 +60,7 @@ export class VisitAddComponent implements OnInit {
 
     this.submitted = true;
 
-    alert('Wprowadzone dane: \n\n' + JSON.stringify(this.addVisitForm.value));
+    //alert('Wprowadzone dane: \n\n' + JSON.stringify(this.addVisitForm.value));
 
     // stop here if form is invalid
     if (this.addVisitForm.invalid) {
@@ -70,4 +74,7 @@ export class VisitAddComponent implements OnInit {
     this.router.navigate(['/visitlist/'])
   }
 
-}
+  collectData(userId: number){
+  }
+
+  }

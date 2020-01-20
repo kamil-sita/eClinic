@@ -8,6 +8,8 @@ export class VisitToAdd {
   scheduledDate: string;
   startingTime: string;
   //patient: Patient;
+  static patientId: number;
+  static employeeId: number;
 
 
   constructor(patientId: number,
