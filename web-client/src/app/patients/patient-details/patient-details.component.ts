@@ -28,4 +28,8 @@ export class PatientDetailsComponent implements OnInit {
   toIllnessHistory(userId: number) {
     this.router.navigate(['/patientlist/'+userId+'/history'])
   }
+
+  toVisitAdd(userId: number) {
+    this.router.navigate(['/doctorlist/'])
+  }
 }

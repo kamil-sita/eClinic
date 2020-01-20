@@ -28,4 +28,8 @@ export class DoctorDetailsComponent implements OnInit {
   toSchedule(userId) {
     this.router.navigate(['/doctorlist/'+userId+'/schedule'])
   }
+
+  toVisitAdd(userId) {
+    this.router.navigate(['/doctorlist/'+userId+'/schedule'])
+  }
 }
