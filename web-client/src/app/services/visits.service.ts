@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Visit} from "../data/visits/visit";
+import {VisitToAdd} from "../data/visits/visit-to-add";
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ export class VisitsService {
 
   getVisitServices(visitId): Observable<VisitsService[]>{
     return this.http.get<VisitsService[]>('http://localhost:8080/api/visits/?visit_id='+visitId+'/services');
+  }
+
+  postVisit(visit: VisitToAdd){
+    this.http.post('http://localhost:8080/api/visits', visit);
   }
 }

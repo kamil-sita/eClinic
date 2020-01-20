@@ -3,33 +3,27 @@
     <div class="jumbotron mt-5 text-center align-content-center">
       <h3 class="display-4">Dodawanie nowej wizyty</h3>
       <form [formGroup]="addVisitForm" (ngSubmit)="addVisitToDB()" class="center-form mt-3">
-        <label for="patientId" class="sr-only">patientId</label>
-        <input formControlName="patientId" type="number" id="patientId" class="form-control"
-               placeholder="ID pacjenta" required="" autofocus="">
-        <label for="doctorId" class="sr-only">doctorId</label>
-        <input formControlName="doctorId" type="number" id="doctorId" class="form-control mt-1"
-               placeholder="ID lekarza" required="">
 
         <label for="firstNamePatient" class="sr-only">firstNamePatient</label>
-        <input formControlName="firstNamePatient" type="text" id="firstNamePatient" class="form-control mt-2"
+        <input formControlName="firstNamePatient" type="text" id="firstNamePatient" class="form-control"
                placeholder="Imię pacjenta" required="" autofocus="">
         <label for="lastNamePatient" class="sr-only">lastNamePatient</label>
         <input formControlName="lastNamePatient" type="text" id="lastNamePatient" class="form-control mt-1"
                placeholder="Nazwisko pacjenta" required="">
 
-        <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>
-        <input formControlName="firstNameDoctor" type="text" id="firstNameDoctor" class="form-control mt-2"
-               placeholder="Imię lekarza" required="" autofocus="">
-        <label for="lastNameDoctor" class="sr-only">lastNameDoctor</label>
-        <input formControlName="lastNameDoctor" type="text" id="lastNameDoctor" class="form-control mt-1"
-               placeholder="Nazwisko lekarza" required="">
+<!--        <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>-->
+<!--        <input formControlName="firstNameDoctor" type="text" id="firstNameDoctor" class="form-control mt-2"-->
+<!--               placeholder="Imię lekarza" required="" autofocus="">-->
+<!--        <label for="lastNameDoctor" class="sr-only">lastNameDoctor</label>-->
+<!--        <input formControlName="lastNameDoctor" type="text" id="lastNameDoctor" class="form-control mt-1"-->
+<!--               placeholder="Nazwisko lekarza" required="">-->
 
-        <label for="date" class="sr-only">date</label>
-        <input formControlName="date" type="date" id="date" class="form-control mt-2"
-               placeholder="Termin wizyty" required="" autofocus="">
-        <label for="time" class="sr-only">time</label>
-        <input formControlName="time" type="time" id="time" class="form-control mt-1"
-               placeholder="Godzina" required="">
+<!--        <label for="date" class="sr-only">date</label>-->
+<!--        <input formControlName="date" type="date" id="date" class="form-control mt-2"-->
+<!--               placeholder="Termin wizyty" required="" autofocus="">-->
+<!--        <label for="time" class="sr-only">time</label>-->
+<!--        <input formControlName="time" type="time" id="time" class="form-control mt-1"-->
+<!--               placeholder="Godzina" required="">-->
         <div style="position: relative; top: 10px">
           <button (click)="addVisitToDB()" class="btn btn-primary btn-block mt-3">Dodaj wizytę</button>
           <button (click)="returnToVisitList()" class="btn btn-danger btn-block mt-1">Anuluj</button>
