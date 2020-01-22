@@ -1,5 +1,3 @@
-import {Patient} from "../patients/patient";
-
 export class VisitToAdd {
 
   patientId: number;
@@ -7,10 +5,6 @@ export class VisitToAdd {
   employeeId: number;
   scheduledDate: string;
   startingTime: string;
-  //patient: Patient;
-  static patientId: number;
-  static employeeId: number;
-
 
   constructor(patientId: number,
               serviceId: number,

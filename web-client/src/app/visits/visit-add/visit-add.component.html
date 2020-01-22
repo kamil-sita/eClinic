@@ -2,43 +2,70 @@
   <div class="col-md-8 d-flex align-items-center">
     <div class="jumbotron mt-5 text-center align-content-center">
       <h3 class="display-4">Dodawanie nowej wizyty</h3>
-      <form [formGroup]="addVisitForm" (ngSubmit)="addVisitToDB()" class="center-form mt-3">
 
-        <label for="serviceId" class="sr-only">serviceId</label>
-        <input formControlName="serviceId" type="number" id="serviceId" class="form-control"
-               placeholder="Rodzaj usługi" required="" autofocus="">
-        <label for="Date" class="sr-only">Date</label>
-        <input formControlName="Date" type="Date" id="Date" class="form-control mt-1"
-               placeholder="Data wizyty" required="">
-        <label for="Time" class="sr-only">Time</label>
-        <input formControlName="Time" type="Time" id="Time" class="form-control mt-1"
-               placeholder="Godzina" required="">
-
-<!--        <label for="firstNameDoctor" class="sr-only">firstNameDoctor</label>-->
-<!--        <input formControlName="firstNameDoctor" type="text" id="firstNameDoctor" class="form-control mt-2"-->
-<!--               placeholder="Imię lekarza" required="" autofocus="">-->
-<!--        <label for="lastNameDoctor" class="sr-only">lastNameDoctor</label>-->
-<!--        <input formControlName="lastNameDoctor" type="text" id="lastNameDoctor" class="form-control mt-1"-->
-<!--               placeholder="Nazwisko lekarza" required="">-->
-
-<!--        <label for="date" class="sr-only">date</label>-->
-<!--        <input formControlName="date" type="date" id="date" class="form-control mt-2"-->
-<!--               placeholder="Termin wizyty" required="" autofocus="">-->
-<!--        <label for="time" class="sr-only">time</label>-->
-<!--        <input formControlName="time" type="time" id="time" class="form-control mt-1"-->
-<!--               placeholder="Godzina" required="">-->
-        <div style="position: relative; top: 10px">
-          <button (click)="addVisitToDB()" class="btn btn-primary btn-block mt-3">Dodaj wizytę</button>
-          <button (click)="returnToVisitList()" class="btn btn-danger btn-block mt-1">Anuluj</button>
+      <div *ngIf="isStatePatientSelection()">
+        <div class="col-md-14">
+          <h2>Lista pacjentów</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let patient of patientList">
+              {{patient.firstName + " " + patient.lastName}}
+              <button (click)="moveToServiceSelection(patient.userId)" class="btn btn-danger">Wybierz</button>
+            </li>
+          </ul>
         </div>
-      </form>
-      <!--      <div *ngIf="addPositive()" class="text-danger mt-3">-->
-      <!--        <p>Wizyta została dodana.</p>-->
-      <!--      </div>-->
-      <!--      <div *ngIf="addNegative()" class="text-danger mt-3">-->
-      <!--        <p>Dodawanie wizyty nie powiodło się.</p>-->
-      <!--      </div>-->
+      </div>
+      <div *ngIf="isStateServiceSelection()">
+        <div class="col-md-14">
+          <h2>Rodzaje usług</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let service of serviceList">
+              {{service.serviceName}}
+              <button (click)="movetoDoctorSelection(service.medicalServiceId)" class="btn btn-danger">Wybierz usługę
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="isStateDoctorSelection()">
+        <div class="col-md-14">
+          <h2>Lista doktorów</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let doctor of doctorList">
+              {{doctor.user.firstName + " " + doctor.user.lastName}}
+              <button (click)="movetoDateTimeSelection(doctor.user.userId)" class="btn btn-danger">Wybierz termin
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="isStateDateSelection()">
+        <div class="col-md-14">
+          <h3>Termin wizyty</h3>
+<!--          <li class="list-group-item d-flex justify-content-between align-items-stretch"-->
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="col-md">
+              <h6>Data wizyty:</h6>
+              <!--              Try to change input type to "date"  -->
+              <input type="text" id="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="col-md">
+              <h6>Godzina:</h6>
+              <input type="text" id="hour" [(ngModel)]="hour" name="hour" placeholder="HH:MM:SS">
+            </div>
+            <button (click)="movetoEndSelection(date, hour)" class="btn btn-primary btn-block mt-3">Zatwierdź wizytę
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isStateEndSelection()">
+        <h4>Wizyta została dodana</h4>
+        <button (click)="goToHomepage()" class="btn btn-primary btn-block mt-3">Przejdź na stronę główną</button>
+      </div>
     </div>
   </div>
 </div>
+
 

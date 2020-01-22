@@ -11,7 +11,7 @@ import {IllnessHistoryComponent} from './patients/illness-history/illness-histor
 import {AccountDetailsComponent} from "./commons/account-details/account-details.component";
 import {VisitListComponent} from "./visits/visit-list/visit-list.component";
 import {VisitAddComponent} from "./visits/visit-add/visit-add.component";
-
+import {VisitDetailsComponent} from "./visits/visit-details/visit-details.component";
 
 
 const routes: Routes = [
@@ -27,6 +27,7 @@ const routes: Routes = [
   {path: 'patientlist/:id/history', component: IllnessHistoryComponent},
   {path: 'visitlist', component: VisitListComponent},
   {path: 'visitadd', component: VisitAddComponent},
+  {path: 'visits/:id', component: VisitDetailsComponent},
 ];
 
 @NgModule({

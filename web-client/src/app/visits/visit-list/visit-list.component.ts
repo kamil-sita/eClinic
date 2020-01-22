@@ -18,12 +18,11 @@ export class VisitListComponent implements OnInit {
   constructor(private visitsService: VisitsService, private router: Router) { }
 
   ngOnInit() {
-    this.visitsService.getVisits(this.name, this.surname).subscribe(visits => this.visits = visits);
+    this.visitsService.getVisits().subscribe(visits => this.visits = visits);
   }
 
-  toVisitDetails(userId) {
-    //Dostęp do szczegółów pacjenta (nie wizyty, ale zrozumiałem, że tego właśnie oczkujecie)
-    this.router.navigate(['/patientlist/'+userId]);
+  toVisitDetails(visitId: number) {
+    this.router.navigate(['/visits/'+ visitId]);
   }
 
   toVisitAdd(){

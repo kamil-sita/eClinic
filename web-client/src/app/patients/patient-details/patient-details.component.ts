@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../data/patients/patient';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {PatientsService} from '../../services/patients.service';
-import {VisitAddComponent} from "../../visits/visit-add/visit-add.component";
-import {VisitToAdd} from "../../data/visits/visit-to-add";
 
 @Component({
   selector: 'app-patient-details',
@@ -13,10 +11,11 @@ import {VisitToAdd} from "../../data/visits/visit-to-add";
 })
 export class PatientDetailsComponent implements OnInit {
 
-  patient:Patient;
+  patient: Patient;
   userId;
 
-  constructor(private patientsService: PatientsService, private route: ActivatedRoute, private location: Location, private router: Router) { }
+  constructor(private patientsService: PatientsService, private route: ActivatedRoute, private location: Location, private router: Router) {
+  }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -28,11 +27,6 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   toIllnessHistory(userId: number) {
-    this.router.navigate(['/patientlist/'+userId+'/history'])
-  }
-
-  toVisitAdd(userId: number) {
-    VisitToAdd.patientId = userId;
-    this.router.navigate(['/doctorlist/'])
+    this.router.navigate(['/patientlist/' + userId + '/history'])
   }
 }

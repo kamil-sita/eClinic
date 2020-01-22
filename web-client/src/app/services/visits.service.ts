@@ -11,32 +11,16 @@ export class VisitsService {
 
   constructor(private http: HttpClient) { }
 
-  getVisits(name, surname): Observable<Visit[]>{
-    //zmienic url aby mozna bylo wyszukiwac wizyty osob o okonkretnych nazwiskach
+  getVisits(): Observable<Visit[]>{
     return this.http.get<Visit[]>('http://localhost:8080/api/visits/');
   }
 
-  getDoctorsVisits(userId): Observable<Visit[]>{
-    return this.http.get<Visit[]>('http://localhost:8080/api/doctors/?user_id='+userId+'/visits');
-  }
+  getVisit(visitId): Observable<Visit>{
+    return this.http.get<Visit>('http://localhost:8080/api/visits/' + visitId);
+}
 
-  getPatientsVisits(userId): Observable<Visit[]>{
-    return this.http.get<Visit[]>('http://localhost:8080/api/patients/?user_id='+userId+'/visits');
-  }
-
-  getSpecificVisit(visitId): Observable<Visit>{
-    return this.http.get<Visit>('http://localhost:8080/api/visits/?visit_id='+visitId);
-  }
-
-  getVisitDocuments(visitId): Observable<Document[]>{
-    return this.http.get<Document[]>('http://localhost:8080/api/visits/?visit_id='+visitId+'/documents');
-  }
-
-  getVisitServices(visitId): Observable<VisitsService[]>{
-    return this.http.get<VisitsService[]>('http://localhost:8080/api/visits/?visit_id='+visitId+'/services');
-  }
-
-  postVisit(visit: VisitToAdd){
+  postVisit(visit: VisitToAdd) {
+    console.log(visit);
     this.http.post('http://localhost:8080/api/visits', visit);
   }
 }

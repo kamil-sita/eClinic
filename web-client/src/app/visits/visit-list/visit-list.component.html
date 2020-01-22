@@ -15,12 +15,13 @@
       </div>
       <input name="search" type="submit" value="Szukaj">
     </form>
-<!--    <div style="position: relative; top: 50px">-->
-<!--      <button (click)="toVisitAdd()" class="btn btn-danger">Dodaj wizytę</button>-->
-<!--    </div>-->
+    <div>
+      <button class="btn btn-danger mt-4" (click)="toVisitAdd()">Dodaj nową wizytę</button>
+    </div>
   </div>
   <div class="col-md-6">
     <h2>Lista wizyt</h2>
+
 
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let visit of visits">
@@ -33,8 +34,7 @@
         {{visit.employee.user.lastName}}
         {{visit.employee.user.firstName}}
         <!--          Szczegoly wizyty to po prostu dokladne informacje o pacjencie -->
-        <button (click)="toVisitDetails(visit.patient.userId)" class="btn btn-danger">Więcej</button>
-
+        <button (click)="toVisitDetails(visit.visitId)" class="btn btn-danger">Szczegóły</button>
       </li>
     </ul>
   </div>
