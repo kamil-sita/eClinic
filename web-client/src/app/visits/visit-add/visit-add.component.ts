@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Patient} from "../../data/patients/patient";
 import {VisitToAdd} from "../../data/visits/visit-to-add";
@@ -10,7 +10,6 @@ import {MedicalServiceService} from "../../services/medical-service.service";
 import {MedicalService} from "../../data/services/medical-service";
 import {Employee} from "../../data/doctors/doctor";
 import {DoctorsService} from "../../services/doctors.service";
-import {Time} from "@angular/common";
 
 @Component({
   selector: 'app-visit-add',
@@ -20,7 +19,6 @@ import {Time} from "@angular/common";
 export class VisitAddComponent implements OnInit {
 
   submitted = false;
-
 
   state: CreatorState = CreatorState.PATIENT_SELECTION;
   patientList: Patient[];
@@ -102,20 +100,15 @@ export class VisitAddComponent implements OnInit {
     this.state = CreatorState.DATE_SELECTION;
   }
 
-  //mozna zmienic format na date i hour
   movetoEndSelection(date: string, hour: string){
-    //Okazuje się, że typ 'Date' z html-a jest przekazywany jako string, więc poniższy wiersz jest niepotrzebny,
-    //a użycie formatu 'Date' w parametrach funkcji jest przyczyną błędu :O
-    //this.date = date.toString();
     this.date = date;
     console.log(typeof this.date);
 
-
-    var addSeconds:string = hour + ":00";
-    this.hour = addSeconds;
+    //To change data to correct type required by database
+    this.hour = hour + ":00";
     console.log(typeof this.hour);
 
-    // Uncomment:
+    // Pass data to post() method:
     this.saveVisit();
 
     this.state = CreatorState.END_SELECTION;
