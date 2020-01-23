@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md">
+    <h2>Szczegóły wizyty nr {{visitId}}:</h2>
+    <ul class="list-group">
+      <h4 class="mt-3">Dane pacjenta:</h4>
+      <div class="list-group-item">
+        <li>Imię pacjenta: {{visit.patient.firstName}}</li>
+        <li>Nazwisko pacjenta: {{visit.patient.lastName}}</li>
+        <li>Płeć: {{visit.patient.sex}}</li>
+        <li>Nr PESEL: {{visit.patient.pesel}}</li>
+        <li>Nr tel: {{visit.patient.contactNumber}}</li>
+        <li>Dodatkowe informacje o pacjencie: {{visit.patient.otherInfo}}</li>
+      </div>
+      <h4 class="mt-3">Dane lekarza:</h4>
+      <div class="list-group-item">
+        <li>Imię lekarza: {{visit.employee.user.firstName}}</li>
+        <li>Nazwisko lekarza: {{visit.employee.user.lastName}}</li>
+        <li>Nr tel: {{visit.employee.user.contactNumber}}</li>
+      </div>
+      <h4 class="mt-3">Usługi medyczne:</h4>
+      <div class="list-group-item">
+        <div *ngIf="visit.medicalServices.length > 0">
+          <div *ngFor="let elem of visit.medicalServices">
+            <li>{{elem.serviceName}}</li>
+          </div>
+        </div>
+        <div *ngIf="visit.medicalServices.length == 0">
+          {{visit.patient.firstName + " " + visit.patient.lastName}} nie ma przypisanych żadnych usług medycznych.
+        </div>
+      </div>
+      <h4 class="mt-3">Informacje o wizycie:</h4>
+      <div class="list-group-item">
+        <li>Termin wizyty: {{visit.scheduledDate}}</li>
+        <li>Stan wizyty: {{visit.visitState}}</li>
+        <li>Przewidywany czas trwania wizyty: {{visit.estimatedDuration}}</li>
+      </div>
+    </ul>
+  </div>
+  <div class="col-md">
+    <h2>Akcje:</h2>
+    <button (click)="backClicked()" style="margin-right: 5px; margin-bottom: 5px" class="btn btn-danger"><-- Wróć
+    </button>
+  </div>
+</div>

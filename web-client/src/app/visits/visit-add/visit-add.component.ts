@@ -10,6 +10,7 @@ import {MedicalServiceService} from "../../services/medical-service.service";
 import {MedicalService} from "../../data/services/medical-service";
 import {Employee} from "../../data/doctors/doctor";
 import {DoctorsService} from "../../services/doctors.service";
+import {Time} from "@angular/common";
 
 @Component({
   selector: 'app-visit-add',
@@ -60,7 +61,7 @@ export class VisitAddComponent implements OnInit {
       this.hour);
 
 
-    this.visitsService.postVisit(this.visit);
+    this.visitsService.postVisit(this.visit).subscribe(next => console.log(next));
   }
 
   isStatePatientSelection(){
@@ -103,9 +104,15 @@ export class VisitAddComponent implements OnInit {
 
   //mozna zmienic format na date i hour
   movetoEndSelection(date: string, hour: string){
+    //Okazuje się, że typ 'Date' z html-a jest przekazywany jako string, więc poniższy wiersz jest niepotrzebny,
+    //a użycie formatu 'Date' w parametrach funkcji jest przyczyną błędu :O
+    //this.date = date.toString();
     this.date = date;
     console.log(typeof this.date);
-    this.hour = hour;
+
+
+    var addSeconds:string = hour + ":00";
+    this.hour = addSeconds;
     console.log(typeof this.hour);
 
     // Uncomment:

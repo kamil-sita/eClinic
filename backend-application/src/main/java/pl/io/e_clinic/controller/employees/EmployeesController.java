@@ -250,11 +250,11 @@ public class EmployeesController {
                 .contains(employee_id, WeekSchedule::getEmployeeId)
                 .getFiltered();
 
-        for(WeekSchedule currentSchedule : scheduleList){
-            if(currentSchedule.getWeekDay()== WeekDay.PN){
-               // cur
-            }
-        }
+//        for(WeekSchedule currentSchedule : scheduleList){
+//            if(currentSchedule.getWeekDay()== WeekDay.PN){
+//               // cur
+//            }
+//        }
 
 
         if (!optionalEmployee.isPresent()) {

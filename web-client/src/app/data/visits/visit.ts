@@ -9,5 +9,5 @@ export class Visit {
   scheduledDate: string;
   visitState: string;
   estimatedDuration: number;
-  medicalServices: MedicalService;
+  medicalServices: MedicalService[];
 }

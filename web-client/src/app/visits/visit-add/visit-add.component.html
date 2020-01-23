@@ -49,11 +49,11 @@
             <div class="col-md">
               <h6>Data wizyty:</h6>
               <!--              Try to change input type to "date"  -->
-              <input type="text" id="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD">
+              <input type="Date" id="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD">
             </div>
             <div class="col-md">
               <h6>Godzina:</h6>
-              <input type="text" id="hour" [(ngModel)]="hour" name="hour" placeholder="HH:MM:SS">
+              <input type="Time" id="hour" [(ngModel)]="hour" name="hour" placeholder="HH:MM:SS">
             </div>
             <button (click)="movetoEndSelection(date, hour)" class="btn btn-primary btn-block mt-3">Zatwierdź wizytę
             </button>
