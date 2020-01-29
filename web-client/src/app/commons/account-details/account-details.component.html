@@ -1,0 +1,72 @@
+<div class="container bootstrap snippet">
+  <div class="panel-body inf-content">
+    <div class="row">
+      <div class="col-md-6">
+        <strong>Konto użytkownika</strong><br>
+        <div class="table-responsive">
+          <table class="table table-condensed table-responsive table-user-information">
+            <tbody>
+            <tr>
+              <td>
+                <strong>
+                  <span class="fa fa-id-badge"></span>
+                  Numer ID
+                </strong>
+              </td>
+              <td class="text-primary">
+                {{userDetails.userId}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>
+                  <span class="fa fa-user"></span>
+                  Nazwa użytkownika
+                </strong>
+              </td>
+              <td class="text-primary">
+                {{userDetails.username}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>
+                  <span class="fa fa-id-card"></span>
+                  Imię
+                </strong>
+              </td>
+              <td class="text-primary">
+                {{userDetails.firstName}}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>
+                  <span class="fa fa-id-card"></span>
+                  Nazwisko
+                </strong>
+              </td>
+              <td class="text-primary">
+                {{userDetails.lastName}}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>
+                  <span class="fa fa-bookmark"></span>
+                  Rodzaj konta
+                </strong>
+              </td>
+              <td class="text-primary">
+                {{translateRole()}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

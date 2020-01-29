@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md">
+    <h2>Grafik doktora {{doctor.user.firstName + ' ' + doctor.user.lastName}}: </h2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Dzień</th>
+        <th scope="col">Godz. rozpoczęcia</th>
+        <th scope="col">Godz. zakończenia</th>
+        <th scope="col">Pokój</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let day of weekSchedule">
+        <th scope="row">{{day.weekDay}}</th>
+        <td>{{day.startingTime}}</td>
+        <td>{{day.endingTime}}</td>
+        <td>Nr: {{day.room.room_id}}, Nazwa: {{day.room.roomName}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="backClicked()" style="margin-right: 5px" class="btn btn-danger"><-- Wróć</button>
+    <!--<button (click)="toScheduleEdit(doctor.user.userId)" class="btn btn-danger">Edytuj grafik</button>-->
+  </div>
+</div>
+
+<!-- modal się dziwnie zachowuje, olewam to -->
+<!--
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->

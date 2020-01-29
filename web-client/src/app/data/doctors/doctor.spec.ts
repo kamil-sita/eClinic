@@ -1,7 +1,7 @@
-import { Doctor } from './doctor';
+import { Employee } from './doctor';
 
 describe('Doctor', () => {
   it('should create an instance', () => {
-    expect(new Doctor()).toBeTruthy();
+    expect(new Employee()).toBeTruthy();
   });
 });

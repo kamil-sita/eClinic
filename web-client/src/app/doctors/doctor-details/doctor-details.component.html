@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md">
+    <h2> Dane doktora {{doctor.user.firstName + " " + doctor.user.lastName}}:</h2>
+    <p>Nazwa użytkownika - {{doctor.user.username}}</p>
+    <p>Płeć - {{doctor.user.sex == 'MALE' ? 'Mężczyzna' : 'Kobieta'}}</p>
+    <p>Pesel - {{doctor.user.pesel}}</p>
+    <p>Adres - {{doctor.user.address}}</p>
+    <p>Nr tel - {{doctor.user.contactNumber}}</p>
+    <p>Inne informacje - {{doctor.user.otherInfo}}</p>
+  </div>
+  <div class="col-md">
+    <h2>Akcje:</h2>
+    <button (click)="backClicked()" style="margin-right: 5px" class="btn btn-danger"><-- Wróć</button>
+    <button (click)="toSchedule(doctor.user.userId)" class="btn btn-danger">Pokaż grafik</button>
+  </div>
+
+</div>

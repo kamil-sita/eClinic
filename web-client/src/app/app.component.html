@@ -9,20 +9,37 @@
   </ul>
 
   <span class="text-black-50"><i class="fa fa-2x fa-user mr-2"></i></span>
-  <button class="btn btn-sm btn-warning">Logowanie</button>
+
+  <div *ngIf="!usernamePresent(); else userNamePresent">
+    <button (click)="naviateToLoginPage()" class="btn btn-sm btn-warning">Logowanie</button>
+  </div>
+  <ng-template #userNamePresent>
+    <div class="text-white">{{username}}</div>
+  </ng-template>
 </nav>
 
 <mat-drawer-container>
   <mat-drawer #sidebar mode="side">
     <div class="container">
       <nav class="nav flex-column">
-        <a class="nav-link"  routerLink="/homepage" routerLinkActive="active">Strona główna</a>
-        <a class="nav-link"  routerLink="/loginpage" routerLinkActive="active">Logowanie</a>
+        <a class="nav-link" routerLink="/homepage" routerLinkActive="active">Strona główna</a>
+        <a *ngIf="this.userService.isReceptionist()"
+          class="nav-link" routerLink="/doctorlist" routerLinkActive="active">Doktorzy</a>
+        <a *ngIf="this.userService.isEmployee()"
+           class="nav-link" routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
+        <a *ngIf="this.userService.isEmployee()"
+           class="nav-link" routerLink="/visitlist" routerLinkActive="active">Wizyty</a>
+        <a *ngIf="this.userService.hasUser()"
+           class="nav-link" routerLink="/account" routerLinkActive="active">Konto</a>
+        <a *ngIf="this.userService.hasUser()"
+           (click)="this.userService.signOut()" routerLink="/homepage" class="nav-link" routerLinkActive="active">Wyloguj</a>
       </nav>
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <router-outlet></router-outlet>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>
 
