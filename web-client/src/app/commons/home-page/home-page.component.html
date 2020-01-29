@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-xl-6 d-flex align-items-center">
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">E-Przychodnia</h1>
+        <p class="lead">Witamy na stronie głównej oprogramowania E-Przychodnia.</p>
+        <hr class="my-4">
+        <div *ngIf="usernamePresent(); else noUserPresent">
+          <p>Witaj {{username}}! Owtórz pasek nawigacji, żeby skorzystać
+            z dostępnych narzędzi.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUserPresent>
+  <p>Żeby skorzystać z dostępnych narzędzi, konieczne jest logowanie.
+    Po zalogowaniu przez panel nawigacji możliwe jest skorzystanie
+    z wybranych narzędzi.</p>
+</ng-template>
+
+

@@ -1,21 +1,47 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<nav class="navbar navbar-expand navbar-light bg-primary">
+  <button (click)="sidebar.toggle()" class="btn btn-outline-light fa fa-bars"></button>
 
-<router-outlet></router-outlet>
+  <span class="nav-item text-white text-xl-center ml-3">Nawigacja</span>
+
+  <ul class="navbar-nav mx-auto">
+    <li class="fa fa-2x fa-medkit text-white mr-2 my-auto"></li>
+    <li class="text-white my-auto ml-2">E-Przychodnia</li>
+  </ul>
+
+  <span class="text-black-50"><i class="fa fa-2x fa-user mr-2"></i></span>
+
+  <div *ngIf="!usernamePresent(); else userNamePresent">
+    <button (click)="naviateToLoginPage()" class="btn btn-sm btn-warning">Logowanie</button>
+  </div>
+  <ng-template #userNamePresent>
+    <div class="text-white">{{username}}</div>
+  </ng-template>
+</nav>
+
+<mat-drawer-container>
+  <mat-drawer #sidebar mode="side">
+    <div class="container">
+      <nav class="nav flex-column">
+        <a class="nav-link" routerLink="/homepage" routerLinkActive="active">Strona główna</a>
+        <a *ngIf="this.userService.isReceptionist()"
+          class="nav-link" routerLink="/doctorlist" routerLinkActive="active">Doktorzy</a>
+        <a *ngIf="this.userService.isEmployee()"
+           class="nav-link" routerLink="/patientlist" routerLinkActive="active">Pacjenci</a>
+        <a *ngIf="this.userService.isEmployee()"
+           class="nav-link" routerLink="/visitlist" routerLinkActive="active">Wizyty</a>
+        <a *ngIf="this.userService.hasUser()"
+           class="nav-link" routerLink="/account" routerLinkActive="active">Konto</a>
+        <a *ngIf="this.userService.hasUser()"
+           (click)="this.userService.signOut()" routerLink="/homepage" class="nav-link" routerLinkActive="active">Wyloguj</a>
+      </nav>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+

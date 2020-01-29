@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>Wyszukaj:</h2>
+    <form (ngSubmit)="ngOnInit()">
+      <div class="col-md">
+        <h3>Imię: </h3>
+        <input type="text" id="name" [(ngModel)]="name" name="name">
+      </div>
+      <div class="col-md">
+        <h3>Nazwisko: </h3>
+        <input type="text" id="surname" [(ngModel)]="surname" name="surname">
+      </div>
+      <input name="search" type="submit" value="Szukaj">
+    </form>
+    <div>
+      <button class="btn btn-danger mt-4" (click)="toVisitAdd()">Dodaj nową wizytę</button>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h2>Lista wizyt</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let visit of visits">
+        {{visit.visitId}}
+        {{" Pacjent: "}}
+        {{visit.patient.firstName}}
+        {{visit.patient.lastName}}
+        {{" | Lekarz: "}}
+        {{visit.employee.user.lastName}}
+        {{visit.employee.user.firstName}}
+        <button (click)="toVisitDetails(visit.visitId)" class="btn btn-danger">Szczegóły</button>
+      </li>
+    </ul>
+  </div>
+</div>

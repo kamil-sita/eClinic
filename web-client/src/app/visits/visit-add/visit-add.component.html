@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 d-flex align-items-center">
+    <div class="jumbotron mt-5 text-center align-content-center">
+      <h3 class="display-4">Dodawanie nowej wizyty</h3>
+
+      <div *ngIf="isStatePatientSelection()">
+        <div class="col-md-14">
+          <h2>Lista pacjentów</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let patient of patientList">
+              {{patient.firstName + " " + patient.lastName}}
+              <button (click)="moveToServiceSelection(patient.userId)" class="btn btn-danger">Wybierz</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="isStateServiceSelection()">
+        <div class="col-md-14">
+          <h2>Rodzaje usług</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let service of serviceList">
+              {{service.serviceName}}
+              <button (click)="movetoDoctorSelection(service.medicalServiceId)" class="btn btn-danger">Wybierz usługę
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="isStateDoctorSelection()">
+        <div class="col-md-14">
+          <h2>Lista doktorów</h2>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-stretch"
+                *ngFor="let doctor of doctorList">
+              {{doctor.user.firstName + " " + doctor.user.lastName}}
+              <button (click)="movetoDateTimeSelection(doctor.user.userId)" class="btn btn-danger">Wybierz termin
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="isStateDateSelection()">
+        <div class="col-md-14">
+          <h3>Termin wizyty</h3>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="col-md">
+              <h6>Data wizyty:</h6>
+              <input type="Date" id="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="col-md">
+              <h6>Godzina:</h6>
+              <input type="Time" id="hour" [(ngModel)]="hour" name="hour" placeholder="HH:MM:SS">
+            </div>
+            <button (click)="movetoEndSelection(date, hour)" class="btn btn-primary btn-block mt-3">Zatwierdź wizytę
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isStateEndSelection()">
+        <h4>Wizyta została dodana</h4>
+        <button (click)="goToHomepage()" class="btn btn-primary btn-block mt-3">Przejdź na stronę główną</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

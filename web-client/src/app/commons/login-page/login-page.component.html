@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8 d-flex align-items-center">
+      <div class="jumbotron mt-5 text-center align-content-center">
+        <h1 class="display-4">Logowanie</h1>
+        <p class="lead">Zaloguj się do systemu</p>
+        <form [formGroup]="credentialsForm" class="form-signin mt-3">
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input formControlName="username" type="username" id="inputEmail" class="form-control"
+                 placeholder="Nazwa użytkownika" required="" autofocus="">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input formControlName="password" type="password" id="inputPassword" class="form-control mt-2"
+                 placeholder="Hasło" required="">
+          <button (click)="signIn()" class="btn btn-primary btn-block mt-3">Zaloguj</button>
+        </form>
+        <div *ngIf="hasLoginFailed()" class="text-danger mt-3">
+          <p>Logowanie nie powiodło się. Niepoprawna nazwa użytkownika lub hasło.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
